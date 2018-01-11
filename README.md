@@ -2,7 +2,7 @@
 
 > OnePoker browser P2P Game
 
-## Required Global npm Packages
+## Required global npm packages for development
 
 ### vue-cli
 
