@@ -1,6 +1,16 @@
-# one-poker-browser
+# P2P OnePoker browser game
 
 > OnePoker browser P2P Game
+
+## Required Global npm Packages
+
+### vue-cli
+
+Prerequisites: [Node.js](https://nodejs.org/en/) (>=6.x, 8.x preferred), npm version 3+ and [Git](https://git-scm.com/).
+
+``` bash
+npm install -g vue-cli
+```
 
 ## Build Setup
 
