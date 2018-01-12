@@ -6,8 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Deck of Cards Test</title>
-  <script src="https://deck-of-cards.js.org/dist/deck.min.js"></script>
-  <link rel="stylesheet" href="https://deck-of-cards.js.org/example.css">
+  <script src="../../node_modules/deck-of-cards/dist/deck.js"></script>
+  <link rel="stylesheet" href="../../node_modules/deck-of-cards/example/example.css">
 
   <style>
     .item {
@@ -22,6 +22,7 @@
     }
 
     #drop-zone {
+      z-index: 1;
       height: 200px;
       width: 200px;
       position: fixed;
@@ -35,6 +36,11 @@
       transform: translate3d(-50%, -50%, 0);
       border: 1px solid yellow;
     }
+
+    #drop-zone .card {
+      position: relative;
+    }
+
   </style>
 </head>
 
@@ -44,39 +50,7 @@
 
   <div id="drop-zone"></div>
 
-  <script>
-    var $card = document.getElementById('card');
-    var $deck = document.getElementById('deck');
-    var $drop = document.getElementById('drop-zone');
-    var deck = Deck();
-    deck.mount($deck); // Remove unused cards 
-    var removedCards = deck.cards.splice(40, 5);
-    removedCards.concat(deck.cards.splice(27,
-      5));
-    removedCards.concat(deck.cards.splice(14, 5));
-    removedCards.concat(deck.cards.splice(1, 5));
-    removedCards.forEach(function (removedCard) {
-      removedCard.unmount();
-    });
-    deck.shuffle(); // Select the first card 
-    var card = deck.cards[0]; // Add it to    an html container 
-    card.mount($card); // Allow to move/drag it 
-    card.enableDragging();
-    card.setSide('front');
-    document.addEventListener("drop",
-      function (event) {
-        // prevent default action (open as link for some elements) 
-        event.preventDefault();
-        deck.cards.pop().unmount();
-        card = deck.cards[0];
-        card.mount($card);
-        card.enableDragging();
-        card.setSide('front');
-      }, false);
-    // Allow to flip it 
-    //card.enableFlipping();
-
-  </script>
+  <script src="test.js"></script>
 </body>
 
 </html>
