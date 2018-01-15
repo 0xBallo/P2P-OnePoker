@@ -5,7 +5,8 @@ function getCard($container, d) {
     dropsCount[0] === dropsCount[1] &&
     dropsCount[1] === dropsCount[2] &&
     dropsCount[2] === dropsCount[3]) {
-    alert('Gioco Terminato!!!');
+    deck.flip();
+    deck.fan();
   } else {
     c = d.cards.pop();
     c.mount($container);
