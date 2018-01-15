@@ -17,9 +17,53 @@ function getCard($container, d) {
   return c;
 }
 
-//calc total score for match
+//Calculate score using pokersolver
 function calcScore() {
-//TODO: struttura gerarchica per valutare i vari punteggi
+  let s = 0;
+  for (let i = 0; i < drops.length; i++) {
+    const column = drops[i];
+    var ps_array = [];
+    column.forEach((c) => {
+      let card = '';
+      switch (c.rank) {
+        case 11:
+          card += 'J';
+          break;
+        case 12:
+          card += 'Q';
+          break;
+        case 13:
+          card += 'K';
+          break;
+        default:
+          card += c.rank;
+          break;
+      }
+      switch (c.suit) {
+        case 0:
+          card += 's';
+          break;
+        case 1:
+          card += 'h';
+          break;
+        case 2:
+          card += 'c';
+          break;
+        case 3:
+          card += 'd';
+          break;
+        default:
+          break;
+      }
+      ps_array.push(card);
+    });
+
+    //TODO: calc Score
+    var hand = Hand.solve(ps_array);
+    console.log(hand);
+
+  }
+
 }
 
 //check if a row is complete

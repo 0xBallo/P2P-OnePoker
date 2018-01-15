@@ -31,7 +31,7 @@ For detailed explanation on how things work, consult the [docs for vue-loader](h
 
 ### Goal
 
-Reach **502** points for first. In case, two or more player reach 502 in the same turn, win the one with the highest score at the end of the turn. If at the flop you find a poker on the table, you instantly won the game.
+Reach **502** points for first. In case, two or more player reach 502 in the same turn, the one with the highest score at the end of the turn won. If at the flop you find a poker on the table, you instantly won the game.
 
 ### Scores
 
