@@ -8,6 +8,11 @@ function getCard($container, d) {
     deck.flip();
     deck.fan();
     score = calcScore();
+    sum += score;
+    var $li = document.createElement("li");
+    $li.innerHTML = score;
+    $scores.appendChild($li);
+    $sum.innerHTML = sum;
   } else {
     c = d.cards.pop();
     c.mount($container);
@@ -26,6 +31,9 @@ function calcScore() {
     column.forEach((c) => {
       let card = '';
       switch (c.rank) {
+        case 10:
+          card += 'T';
+          break;
         case 11:
           card += 'J';
           break;
@@ -57,13 +65,49 @@ function calcScore() {
       }
       ps_array.push(card);
     });
-
-    //TODO: calc Score
     var hand = Hand.solve(ps_array);
-    console.log(hand);
+
+    switch (hand.rank) {
+      case 2:
+        //One Pair
+        s += 2;
+        break;
+      case 3:
+        //Two Pairs
+        s += 4;
+        break;
+      case 4:
+        //Three of a kind
+        s += 10;
+        break;
+      case 5:
+        //Straight
+        s += 15;
+        break;
+      case 6:
+        //Flush
+        s += 30;
+        break;
+      case 7:
+        //Full House
+        s += 50;
+        break;
+      case 8:
+        //Four of a Kind
+        s += 100;
+        break;
+      case 9:
+        //Royal Flush
+        s += 150;
+        break;
+
+      default:
+        break;
+    }
 
   }
 
+  return s;
 }
 
 //check if a row is complete
@@ -210,9 +254,6 @@ function newGame() {
 
 //save score and start new game
 function next() {
-  var score = document.createElement("li");
-  score.innerHTML = "20";
-  $scores.appendChild(score);
   start();
 }
 
