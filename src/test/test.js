@@ -226,7 +226,6 @@ function start() {
   $drop4.innerHTML = '';
 
   deck = Deck();
-  deck.mount($deck);
 
   // Remove unused cards 
   removedCards = deck.cards.splice(40, 4);
@@ -237,6 +236,7 @@ function start() {
     removedCard.unmount();
   });
 
+  deck.mount($deck);
   deck.shuffle();
   first4Cards(deck);
 
@@ -259,7 +259,8 @@ function next() {
 }
 
 
-var $card = document.getElementById('card');
+var $card = document.getElementById('deck');
+
 var $deck = document.getElementById('deck');
 var $drop1 = document.getElementById('drop1');
 var $drop2 = document.getElementById('drop2');
