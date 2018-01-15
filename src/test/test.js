@@ -108,8 +108,19 @@ function changeCard(event) {
 
 }
 
-//Main program
-function main() {
+//Start match
+function start() {
+  dropsCount = [1, 1, 1, 1];
+  dropsLock = [false, false, false, false];
+  score = 0;
+
+  $deck.innerHTML = '';
+  $card.innerHTML = '';
+  $drop1.innerHTML = '';
+  $drop2.innerHTML = '';
+  $drop3.innerHTML = '';
+  $drop4.innerHTML = '';
+
   deck = Deck();
   deck.mount($deck);
 
@@ -127,10 +138,23 @@ function main() {
 
   // Select the first card
   card = getCard($card, deck);
-  $drop1.addEventListener("mouseup", changeCard, false);
-  $drop2.addEventListener("mouseup", changeCard, false);
-  $drop3.addEventListener("mouseup", changeCard, false);
-  $drop4.addEventListener("mouseup", changeCard, false);
+
+}
+
+//Start new game
+function newGame() {
+  $scores.innerHTML = '';
+  $sum.innerHTML = '0';
+  sum = 0;
+  start();
+}
+
+//save score and start new game
+function next() {
+  var score = document.createElement("li");
+  score.innerHTML = "20";
+  $scores.appendChild(score);
+  start();
 }
 
 
@@ -140,9 +164,18 @@ var $drop1 = document.getElementById('drop1');
 var $drop2 = document.getElementById('drop2');
 var $drop3 = document.getElementById('drop3');
 var $drop4 = document.getElementById('drop4');
-var dropsCount = [1, 1, 1, 1];
-var dropsLock = [false, false, false, false];
-
+var $new = document.getElementById('start');
+var $next = document.getElementById('next');
+var $scores = document.getElementById('scores');
+var $sum = document.getElementById('sum');
+var dropsCount, dropsLock;
 var card, deck, removedCards;
+var sum, score;
 
-main();
+$drop1.addEventListener("mouseup", changeCard, false);
+$drop2.addEventListener("mouseup", changeCard, false);
+$drop3.addEventListener("mouseup", changeCard, false);
+$drop4.addEventListener("mouseup", changeCard, false);
+
+$new.addEventListener("click", newGame, false);
+$next.addEventListener("click", next, false);

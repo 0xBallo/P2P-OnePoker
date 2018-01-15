@@ -9,6 +9,62 @@
   <link rel="stylesheet" href="example.css">
 
   <style>
+    .scoreboard {
+      background-image: url('assets/scoreboard-bg.png');
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center center;
+      width: 350px;
+      height: 400px;
+      position: fixed;
+      top: 25%;
+      left: 80%;
+      transform: rotate(5deg);
+    }
+
+    .scoreboard .title {
+      transform: rotate(-19deg);
+      padding-left: 3rem;
+      padding-top: 2.3rem;
+      font-size: 130%;
+    }
+
+    .scoreboard .dtitle,
+    .scoreboard .dsum {
+      height: 1px;
+      background: #000;
+    }
+
+    .scoreboard .dtitle {
+      transform: rotate(-14deg);
+      margin-left: 3rem;
+      margin-top: 0.7rem;
+      margin-right: 4.5rem;
+    }
+
+    .scoreboard .scores {
+      transform: rotate(-13deg);
+      margin-left: 3.8rem;
+    }
+
+    .scoreboard .scores ul {
+      margin-top: 0;
+    }
+
+    .scoreboard .dsum {
+      transform: rotate(-14deg);
+      margin-left: 4rem;
+      margin-top: 0.7rem;
+      margin-right: 4rem;
+    }
+
+    .scoreboard .sum {
+      transform: rotate(-17deg);
+      padding-left: 6rem;
+      padding-top: .2rem;
+      font-size: 150%;
+    }
+
     .dropzone {
       z-index: 1;
       width: 200px;
@@ -50,26 +106,31 @@
     #drop4 .card:first-child {
       transform: translate(125%, 55px) !important;
     }
-
   </style>
 </head>
 
 <body>
-  <div class="container">
-    <div id="deck"></div>
-    <div id="card"></div>
-  </div>
+  <button id="start">Start new Game!</button>
+  <button id="next">Next Match!</button>
+  <div class="container" id="deck"></div>
+  <div class="container" id="card"></div>
   <div class="dropzone" id="drop1">
-    DROPZONE 1
   </div>
   <div class="dropzone" id="drop2">
-    DROPZONE 2
   </div>
   <div class="dropzone" id="drop3">
-    DROPZONE 3
   </div>
   <div class="dropzone" id="drop4">
-    DROPZONE 4
+  </div>
+  <div class="scoreboard">
+    <div class="title">Score</div>
+    <div class="dtitle"></div>
+    <div class="scores">
+      <ul id="scores">
+      </ul>
+    </div>
+    <div class="dsum"></div>
+    <div class="sum" id="sum">0</div>
   </div>
 
   <script src="deck.js"></script>
