@@ -6,49 +6,65 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Deck of Cards Test</title>
-  <script src="../../node_modules/deck-of-cards/dist/deck.js"></script>
-  <link rel="stylesheet" href="../../node_modules/deck-of-cards/example/example.css">
+  <script src="deck.js"></script>
+  <link rel="stylesheet" href="example.css">
 
   <style>
-    .item {
-      position: fixed;
-      top: calc(50% + 1.5rem);
-      left: 50%;
-      -webkit-transform: translate3d(-50%, -50%, 0);
-      -moz-transform: translate3d(-50%, -50%, 0);
-      -o-transform: translate3d(-50%, -50%, 0);
-      -ms-transform: translate3d(-50%, -50%, 0);
-      transform: translate3d(-50%, -50%, 0);
-    }
-
-    #drop-zone {
+    .dropzone {
       z-index: 1;
-      height: 200px;
       width: 200px;
+      height: 400px;
       position: fixed;
-      top: calc(50% + 1.5rem);
-      left: 80%;
+      top: calc(75% + 1.5rem);
       -webkit-transform: translate3d(-50%, -50%, 0);
       -moz-transform: translate3d(-50%, -50%, 0);
       -o-transform: translate3d(-50%,
       -50%, 0);
       -ms-transform: translate3d(-50%, -50%, 0);
       transform: translate3d(-50%, -50%, 0);
-      border: 1px solid yellow;
+      border: 1px solid yellowgreen;
     }
 
-    #drop-zone .card {
-      position: relative;
+    .dropzone .card {
+      position: absolute;
+    }
+
+    #drop1 {
+      left: 10%;
+    }
+
+    #drop2 {
+      left: 30%;
+    }
+
+    #drop3 {
+      left: 50%;
+    }
+
+    #drop4 {
+      left: 70%;
     }
 
   </style>
 </head>
 
 <body>
-  <div class="item" id="deck"></div>
-  <div class="item" id="card"></div>
-
-  <div id="drop-zone"></div>
+  <div class="container">
+    <div id="deck"></div>
+    <div id="card"></div>
+  </div>
+  <div class="dropzone" id="drop1">
+    DROPZONE 1
+  </div>
+  <div class="dropzone" id="drop2">
+    DROPZONE 2
+  </div>
+  <div class="dropzone" id="drop3">
+    DROPZONE 3
+  </div>
+  <div class="dropzone" id="drop4">
+    DROPZONE 4
+  </div>
 
   <script src="test.js"></script>
 </body>
