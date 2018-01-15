@@ -1,10 +1,23 @@
 //get card from deck
 function getCard($container, d) {
-  var c = d.cards.pop();
-  c.mount($container);
-  c.enableDragging();
-  c.setSide('front');
+  var c;
+  if (dropsCount[0] === 5 &&
+    dropsCount[0] === dropsCount[1] &&
+    dropsCount[1] === dropsCount[2] &&
+    dropsCount[2] === dropsCount[3]) {
+    alert('Gioco Terminato!!!');
+  } else {
+    c = d.cards.pop();
+    c.mount($container);
+    c.enableDragging();
+    c.setSide('front');
+  }
   return c;
+}
+
+//check if a row is complete
+function rowComplete() {
+  return dropsLock[0] && dropsLock[0] == dropsLock[1] && dropsLock[1] == dropsLock[2] && dropsLock[2] == dropsLock[3];
 }
 
 //Place first 4 cards in dropzones
@@ -30,16 +43,95 @@ function first4Cards(d) {
 
 //place card on dropzone and get new one
 function changeCard(event) {
-  console.log(event);
+  var regular, offsetY;
+
   // prevent default action (open as link for some elements) 
   event.preventDefault();
-  card.unmount();
-  card.mount(event.currentTarget);
+  // assume non regular moves
+  regular = false;
+  //update piles info
+  switch (event.currentTarget.id) {
+    case 'drop1':
+      if (!dropsLock[0]) {
+        dropsCount[0]++;
+        dropsLock[0] = true;
+        regular = true;
+      }
+      break;
+    case 'drop2':
+      if (!dropsLock[1]) {
+        dropsCount[1]++;
+        dropsLock[1] = true;
+        regular = true;
+      }
+      break;
+    case 'drop3':
+      if (!dropsLock[2]) {
+        dropsCount[2]++;
+        dropsLock[2] = true;
+        regular = true;
+      }
+      break;
+    case 'drop4':
+      if (!dropsLock[3]) {
+        dropsCount[3]++;
+        dropsLock[3] = true;
+        regular = true;
+      }
+      break;
+    default:
+      break;
+  }
+
   card.disableDragging();
-  var offsetY = 55 + ((event.currentTarget.childElementCount - 1) * 30);
-  card.$el.style.transform = 'translate(125%, ' + offsetY + 'px)';
-  card = getCard($card, deck);
+  if (regular) {
+    card.unmount();
+    card.mount(event.currentTarget);
+
+    offsetY = 55 + ((event.currentTarget.childElementCount - 1) * 30);
+    card.$el.style.transform = 'translate(125%, ' + offsetY + 'px)';
+    if (rowComplete()) {
+      dropsLock = [false, false, false, false];
+    }
+    card = getCard($card, deck);
+  } else {
+    card.animateTo({
+      delay: 0,
+      duration: 500,
+      ease: 'quartOut',
+      x: 0,
+      y: 0
+    });
+    card.enableDragging();
+  }
+
 }
+
+//Main program
+function main() {
+  deck = Deck();
+  deck.mount($deck);
+
+  // Remove unused cards 
+  removedCards = deck.cards.splice(40, 5);
+  removedCards.concat(deck.cards.splice(27, 5));
+  removedCards.concat(deck.cards.splice(14, 5));
+  removedCards.concat(deck.cards.splice(1, 5));
+  removedCards.forEach(function (removedCard) {
+    removedCard.unmount();
+  });
+
+  deck.shuffle();
+  first4Cards(deck);
+
+  // Select the first card
+  card = getCard($card, deck);
+  $drop1.addEventListener("mouseup", changeCard, false);
+  $drop2.addEventListener("mouseup", changeCard, false);
+  $drop3.addEventListener("mouseup", changeCard, false);
+  $drop4.addEventListener("mouseup", changeCard, false);
+}
+
 
 var $card = document.getElementById('card');
 var $deck = document.getElementById('deck');
@@ -47,31 +139,9 @@ var $drop1 = document.getElementById('drop1');
 var $drop2 = document.getElementById('drop2');
 var $drop3 = document.getElementById('drop3');
 var $drop4 = document.getElementById('drop4');
+var dropsCount = [1, 1, 1, 1];
+var dropsLock = [false, false, false, false];
 
 var card, deck, removedCards;
 
-deck = Deck();
-deck.mount($deck);
-
-// Remove unused cards 
-removedCards = deck.cards.splice(40, 5);
-removedCards.concat(deck.cards.splice(27, 5));
-removedCards.concat(deck.cards.splice(14, 5));
-removedCards.concat(deck.cards.splice(1, 5));
-removedCards.forEach(function (removedCard) {
-  removedCard.unmount();
-});
-
-deck.shuffle();
-
-first4Cards(deck);
-
-// Select the first card
-card = getCard($card, deck);
-$drop1.addEventListener("mouseup", changeCard, false);
-$drop2.addEventListener("mouseup", changeCard, false);
-$drop3.addEventListener("mouseup", changeCard, false);
-$drop4.addEventListener("mouseup", changeCard, false);
-
-// Allow to flip it 
-//card.enableFlipping();
+main();
