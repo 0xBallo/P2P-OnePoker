@@ -22,49 +22,50 @@ function getCard($container, d) {
   return c;
 }
 
+// convert deck-of-cards format to pokersolver
+function deck2pokersolver(c) {
+  let card = '';
+  switch (c.rank) {
+    case 10:
+      card += 'T';
+      break;
+    case 11:
+      card += 'J';
+      break;
+    case 12:
+      card += 'Q';
+      break;
+    case 13:
+      card += 'K';
+      break;
+    default:
+      card += c.rank;
+      break;
+  }
+  switch (c.suit) {
+    case 0:
+      card += 's';
+      break;
+    case 1:
+      card += 'h';
+      break;
+    case 2:
+      card += 'c';
+      break;
+    case 3:
+      card += 'd';
+      break;
+    default:
+      break;
+  }
+  return card;
+}
+
 //Calculate score using pokersolver
 function calcScore() {
   let s = 0;
   for (let i = 0; i < drops.length; i++) {
-    const column = drops[i];
-    var ps_array = [];
-    column.forEach((c) => {
-      let card = '';
-      switch (c.rank) {
-        case 10:
-          card += 'T';
-          break;
-        case 11:
-          card += 'J';
-          break;
-        case 12:
-          card += 'Q';
-          break;
-        case 13:
-          card += 'K';
-          break;
-        default:
-          card += c.rank;
-          break;
-      }
-      switch (c.suit) {
-        case 0:
-          card += 's';
-          break;
-        case 1:
-          card += 'h';
-          break;
-        case 2:
-          card += 'c';
-          break;
-        case 3:
-          card += 'd';
-          break;
-        default:
-          break;
-      }
-      ps_array.push(card);
-    });
+    const ps_array = drops[i];
     var hand = Hand.solve(ps_array);
 
     switch (hand.rank) {
@@ -122,22 +123,22 @@ function first4Cards(d) {
   c = d.cards.pop();
   c.mount($drop1);
   c.setSide('front');
-  drops[0].push(c);
+  drops[0].push(deck2pokersolver(c));
   //Dropzone 2
   c = d.cards.pop();
   c.mount($drop2);
   c.setSide('front');
-  drops[1].push(c);
+  drops[1].push(deck2pokersolver(c));
   //Dropzone 3
   c = d.cards.pop();
   c.mount($drop3);
   c.setSide('front');
-  drops[2].push(c);
+  drops[2].push(deck2pokersolver(c));
   //Dropzone 4
   c = d.cards.pop();
   c.mount($drop4);
   c.setSide('front');
-  drops[3].push(c);
+  drops[3].push(deck2pokersolver(c));
 }
 
 //place card on dropzone and get new one
@@ -152,28 +153,28 @@ function changeCard(event) {
   switch (event.currentTarget.id) {
     case 'drop1':
       if (!dropsLock[0]) {
-        drops[0].push(card);
+        drops[0].push(deck2pokersolver(card));
         dropsLock[0] = true;
         regular = true;
       }
       break;
     case 'drop2':
       if (!dropsLock[1]) {
-        drops[1].push(card);
+        drops[1].push(deck2pokersolver(card));
         dropsLock[1] = true;
         regular = true;
       }
       break;
     case 'drop3':
       if (!dropsLock[2]) {
-        drops[2].push(card);
+        drops[2].push(deck2pokersolver(card));
         dropsLock[2] = true;
         regular = true;
       }
       break;
     case 'drop4':
       if (!dropsLock[3]) {
-        drops[3].push(card);
+        drops[3].push(deck2pokersolver(card));
         dropsLock[3] = true;
         regular = true;
       }
@@ -228,10 +229,10 @@ function start() {
   deck.mount($deck);
 
   // Remove unused cards 
-  removedCards = deck.cards.splice(40, 5);
-  removedCards.concat(deck.cards.splice(27, 5));
-  removedCards.concat(deck.cards.splice(14, 5));
-  removedCards.concat(deck.cards.splice(1, 5));
+  removedCards = deck.cards.splice(40, 4);
+  removedCards.concat(deck.cards.splice(27, 4));
+  removedCards.concat(deck.cards.splice(14, 4));
+  removedCards.concat(deck.cards.splice(1, 4));
   removedCards.forEach(function (removedCard) {
     removedCard.unmount();
   });
