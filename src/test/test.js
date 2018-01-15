@@ -1,12 +1,13 @@
 //get card from deck
 function getCard($container, d) {
   var c;
-  if (dropsCount[0] === 5 &&
-    dropsCount[0] === dropsCount[1] &&
-    dropsCount[1] === dropsCount[2] &&
-    dropsCount[2] === dropsCount[3]) {
+  if (drops[0].length === 5 &&
+    drops[0].length === drops[1].length &&
+    drops[1].length === drops[2].length &&
+    drops[2].length === drops[3].length) {
     deck.flip();
     deck.fan();
+    score = calcScore();
   } else {
     c = d.cards.pop();
     c.mount($container);
@@ -14,6 +15,11 @@ function getCard($container, d) {
     c.setSide('front');
   }
   return c;
+}
+
+//calc total score for match
+function calcScore() {
+//TODO: struttura gerarchica per valutare i vari punteggi
 }
 
 //check if a row is complete
@@ -28,18 +34,22 @@ function first4Cards(d) {
   c = d.cards.pop();
   c.mount($drop1);
   c.setSide('front');
+  drops[0].push(c);
   //Dropzone 2
   c = d.cards.pop();
   c.mount($drop2);
   c.setSide('front');
+  drops[1].push(c);
   //Dropzone 3
   c = d.cards.pop();
   c.mount($drop3);
   c.setSide('front');
+  drops[2].push(c);
   //Dropzone 4
   c = d.cards.pop();
   c.mount($drop4);
   c.setSide('front');
+  drops[3].push(c);
 }
 
 //place card on dropzone and get new one
@@ -54,28 +64,28 @@ function changeCard(event) {
   switch (event.currentTarget.id) {
     case 'drop1':
       if (!dropsLock[0]) {
-        dropsCount[0]++;
+        drops[0].push(card);
         dropsLock[0] = true;
         regular = true;
       }
       break;
     case 'drop2':
       if (!dropsLock[1]) {
-        dropsCount[1]++;
+        drops[1].push(card);
         dropsLock[1] = true;
         regular = true;
       }
       break;
     case 'drop3':
       if (!dropsLock[2]) {
-        dropsCount[2]++;
+        drops[2].push(card);
         dropsLock[2] = true;
         regular = true;
       }
       break;
     case 'drop4':
       if (!dropsLock[3]) {
-        dropsCount[3]++;
+        drops[3].push(card);
         dropsLock[3] = true;
         regular = true;
       }
@@ -110,7 +120,12 @@ function changeCard(event) {
 
 //Start match
 function start() {
-  dropsCount = [1, 1, 1, 1];
+  drops = [
+    [],
+    [],
+    [],
+    []
+  ];
   dropsLock = [false, false, false, false];
   score = 0;
 
@@ -168,7 +183,7 @@ var $new = document.getElementById('start');
 var $next = document.getElementById('next');
 var $scores = document.getElementById('scores');
 var $sum = document.getElementById('sum');
-var dropsCount, dropsLock;
+var drops, dropsLock;
 var card, deck, removedCards;
 var sum, score;
 
