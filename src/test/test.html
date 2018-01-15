@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Deck of Cards Test</title>
-  <script src="deck.js"></script>
   <link rel="stylesheet" href="example.css">
 
   <style>
@@ -45,6 +44,13 @@
       left: 70%;
     }
 
+    #drop1 .card:first-child,
+    #drop2 .card:first-child,
+    #drop3 .card:first-child,
+    #drop4 .card:first-child {
+      transform: translate(125%, 55px) !important;
+    }
+
   </style>
 </head>
 
@@ -66,6 +72,7 @@
     DROPZONE 4
   </div>
 
+  <script src="deck.js"></script>
   <script src="test.js"></script>
 </body>
 

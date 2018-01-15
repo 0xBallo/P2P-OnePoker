@@ -1,3 +1,4 @@
+//get card from deck
 function getCard($container, d) {
   var c = d.cards.pop();
   c.mount($container);
@@ -6,6 +7,28 @@ function getCard($container, d) {
   return c;
 }
 
+//Place first 4 cards in dropzones
+function first4Cards(d) {
+  var c;
+  //Dropzone 1
+  c = d.cards.pop();
+  c.mount($drop1);
+  c.setSide('front');
+  //Dropzone 2
+  c = d.cards.pop();
+  c.mount($drop2);
+  c.setSide('front');
+  //Dropzone 3
+  c = d.cards.pop();
+  c.mount($drop3);
+  c.setSide('front');
+  //Dropzone 4
+  c = d.cards.pop();
+  c.mount($drop4);
+  c.setSide('front');
+}
+
+//place card on dropzone and get new one
 function changeCard(event) {
   console.log(event);
   // prevent default action (open as link for some elements) 
@@ -25,11 +48,13 @@ var $drop2 = document.getElementById('drop2');
 var $drop3 = document.getElementById('drop3');
 var $drop4 = document.getElementById('drop4');
 
-var deck = Deck();
+var card, deck, removedCards;
+
+deck = Deck();
 deck.mount($deck);
 
 // Remove unused cards 
-var removedCards = deck.cards.splice(40, 5);
+removedCards = deck.cards.splice(40, 5);
 removedCards.concat(deck.cards.splice(27, 5));
 removedCards.concat(deck.cards.splice(14, 5));
 removedCards.concat(deck.cards.splice(1, 5));
@@ -39,8 +64,10 @@ removedCards.forEach(function (removedCard) {
 
 deck.shuffle();
 
+first4Cards(deck);
+
 // Select the first card
-var card = getCard($card, deck);
+card = getCard($card, deck);
 $drop1.addEventListener("mouseup", changeCard, false);
 $drop2.addEventListener("mouseup", changeCard, false);
 $drop3.addEventListener("mouseup", changeCard, false);
