@@ -6,22 +6,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>P2P OnePoker</title>
+  <link rel="stylesheet" href="../node_modules/spectre.css/dist/spectre.min.css">
+  <link rel="stylesheet" href="../node_modules/spectre.css/dist/spectre-exp.min.css">
+  <link rel="stylesheet" href="../node_modules/spectre.css/dist/spectre-icons.min.css">
   <link rel="stylesheet" href="./assets/css/deck.css">
   <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 
 <body>
-  <button id="start">Start new Game!</button>
-  <button id="next">Next Match!</button>
-  <div class="container" id="deck"></div>
-  <div class="dropzone" id="drop1">
+  <div class="container">
+    <div class="columns">
+      <div class="column col-6">
+        <button id="start" class="btn btn-primary">Start new Game!</button>
+        <button id="next" class="btn">Next Match!</button>
+      </div>
+      <div class="column col-6"></div>
+    </div>
+    <div class="columns">
+      <div class="column col-4"></div>
+      <div id="deck" class="column col-4"></div>
+      <div class="column col-4"></div>
+    </div>
+    <div class="columns">
+      <div id="drop1" class="column col-3 col-mx-auto text-center"></div>
+      <div id="drop2" class="column col-3 col-mx-auto text-center"></div>
+      <div id="drop3" class="column col-3 col-mx-auto text-center"></div>
+      <div id="drop4" class="column col-3 col-mx-auto text-center"></div>
+    </div>
+  </div>
+
+
+  <!-- <div class="container" id="deck"></div> -->
+  <!-- <div class="dropzone" id="drop1">
   </div>
   <div class="dropzone" id="drop2">
   </div>
   <div class="dropzone" id="drop3">
   </div>
   <div class="dropzone" id="drop4">
-  </div>
+  </div> -->
   <div class="scoreboard">
     <div class="title">Score</div>
     <div class="dtitle"></div>

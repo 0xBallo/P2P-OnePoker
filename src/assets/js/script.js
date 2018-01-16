@@ -71,7 +71,7 @@ function calcScore() {
     switch (hand.rank) {
       case 2:
         //One Pair
-        s += 2;
+        s += 1;
         break;
       case 3:
         //Two Pairs
@@ -99,7 +99,7 @@ function calcScore() {
         break;
       case 9:
         //Royal Flush
-        s += 150;
+        s += 200;
         break;
 
       default:
@@ -274,10 +274,14 @@ var drops, dropsLock;
 var card, deck, removedCards;
 var sum, score;
 
-$drop1.addEventListener("mouseup", changeCard, false);
+/* $drop1.addEventListener("mouseup", changeCard, false);
 $drop2.addEventListener("mouseup", changeCard, false);
 $drop3.addEventListener("mouseup", changeCard, false);
-$drop4.addEventListener("mouseup", changeCard, false);
+$drop4.addEventListener("mouseup", changeCard, false); */
+$drop1.addEventListener("click", changeCard, false);
+$drop2.addEventListener("click", changeCard, false);
+$drop3.addEventListener("click", changeCard, false);
+$drop4.addEventListener("click", changeCard, false);
 
 $new.addEventListener("click", newGame, false);
 $next.addEventListener("click", next, false);

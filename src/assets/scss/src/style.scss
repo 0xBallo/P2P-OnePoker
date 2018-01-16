@@ -1,4 +1,19 @@
-    @import 'variables';
+    @import '../lib/variables';
+
+    body {
+      background-color: $bgcolor;
+    }
+
+    //Theme overriding
+    .columns {
+      height: 30%;
+      min-height: 200px;
+    }
+    .container {
+      height: 100%;
+    }
+
+    //Custom styles
     .scoreboard {
       background-image: $scoreboard;
       background-repeat: no-repeat;

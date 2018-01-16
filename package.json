@@ -6,8 +6,8 @@
   "license": "GPL-3.0",
   "private": true,
   "scripts": {
-    "scss-compile": "./node_modules/node-sass/bin/node-sass ./src/assets/scss/style.scss -o ./src/assets/css/",
-    "scss-watch": "./node_modules/node-sass/bin/node-sass -w ./src/assets/scss/style.scss -o ./src/assets/css/"
+    "scss-compile": "./node_modules/node-sass/bin/node-sass ./src/assets/scss/src/ -o ./src/assets/css/",
+    "scss-watch": "./node_modules/node-sass/bin/node-sass -w ./src/assets/scss/src/ -o ./src/assets/css/"
   },
   "dependencies": {
     "deck-of-cards": "^0.1.8",

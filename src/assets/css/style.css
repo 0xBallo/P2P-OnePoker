@@ -1,3 +1,14 @@
+/*Scoreboard Section*/
+body {
+  background-color: #45a173; }
+
+.columns {
+  height: 30%;
+  min-height: 200px; }
+
+.container {
+  height: 100%; }
+
 .scoreboard {
   background-image: url("../images/scoreboard-bg.png");
   background-repeat: no-repeat;
