@@ -1,5 +1,71 @@
-.car .audi {
-  width: 100%; }
+.scoreboard {
+  background-image: url("assets/scoreboard-bg.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center center;
+  width: 350px;
+  height: 400px;
+  position: fixed;
+  top: 25%;
+  left: 80%;
+  transform: rotate(5deg); }
+  .scoreboard .title {
+    transform: rotate(-19deg);
+    padding-left: 3rem;
+    padding-top: 2.3rem;
+    font-size: 130%; }
+  .scoreboard .dtitle,
+  .scoreboard .dsum {
+    height: 1px;
+    background: #000; }
+  .scoreboard .dtitle {
+    transform: rotate(-14deg);
+    margin-left: 3rem;
+    margin-top: 0.7rem;
+    margin-right: 4.5rem; }
+  .scoreboard .scores {
+    transform: rotate(-13deg);
+    margin-left: 3.8rem; }
+    .scoreboard .scores ul {
+      margin-top: 0; }
+  .scoreboard .dsum {
+    transform: rotate(-14deg);
+    margin-left: 4rem;
+    margin-top: 0.7rem;
+    margin-right: 4rem; }
+  .scoreboard .sum {
+    transform: rotate(-17deg);
+    padding-left: 6rem;
+    padding-top: .2rem;
+    font-size: 150%; }
 
-.car .bmw {
-  width: 50%; }
+.dropzone {
+  z-index: 1;
+  width: 200px;
+  height: 400px;
+  position: fixed;
+  top: calc(75% + 1.5rem);
+  -webkit-transform: translate3d(-50%, -50%, 0);
+  -moz-transform: translate3d(-50%, -50%, 0);
+  -o-transform: translate3d(-50%, -50%, 0);
+  -ms-transform: translate3d(-50%, -50%, 0);
+  transform: translate3d(-50%, -50%, 0);
+  border: 1px solid yellowgreen; }
+  .dropzone .card {
+    position: absolute; }
+  .dropzone#drop1 {
+    left: 10%; }
+    .dropzone#drop1 .card:first-child {
+      transform: translate(125%, 55px) !important; }
+  .dropzone#drop2 {
+    left: 30%; }
+    .dropzone#drop2 .card:first-child {
+      transform: translate(125%, 55px) !important; }
+  .dropzone#drop3 {
+    left: 50%; }
+    .dropzone#drop3 .card:first-child {
+      transform: translate(125%, 55px) !important; }
+  .dropzone#drop4 {
+    left: 70%; }
+    .dropzone#drop4 .card:first-child {
+      transform: translate(125%, 55px) !important; }
