@@ -1,19 +1,20 @@
     @import '../lib/variables';
-
     body {
       background-color: $bgcolor;
-    }
-
-    //Theme overriding
-    .columns {
+    } //Theme overriding
+    .container {
+      height: 100%;
+    } //Custom styles
+    .columns.deck,
+    .columns.dropzone {
       height: 30%;
       min-height: 200px;
     }
-    .container {
-      height: 100%;
+
+    #deck {
+      padding-top: 10%;
     }
 
-    //Custom styles
     .scoreboard {
       background-image: $scoreboard;
       background-repeat: no-repeat;
@@ -21,9 +22,6 @@
       background-position: center center;
       width: 350px;
       height: 400px;
-      position: fixed;
-      top: 25%;
-      left: 80%;
       transform: rotate(5deg);
       .title {
         transform: rotate(-19deg);
@@ -47,6 +45,9 @@
         margin-left: 3.8rem;
         ul {
           margin-top: 0;
+          li {
+            margin-top: 0;
+          }
         }
       }
       .dsum {
@@ -60,46 +61,5 @@
         padding-left: 6rem;
         padding-top: .2rem;
         font-size: 150%;
-      }
-    }
-
-    .dropzone {
-      z-index: 1;
-      width: 200px;
-      height: 400px;
-      position: fixed;
-      top: calc(75% + 1.5rem);
-      -webkit-transform: translate3d(-50%, -50%, 0);
-      -moz-transform: translate3d(-50%, -50%, 0);
-      -o-transform: translate3d(-50%, -50%, 0);
-      -ms-transform: translate3d(-50%, -50%, 0);
-      transform: translate3d(-50%, -50%, 0);
-      border: 1px solid yellowgreen;
-      .card {
-        position: absolute;
-      }
-      &#drop1 {
-        left: 10%;
-        .card:first-child {
-          transform: translate(125%, 55px) !important;
-        }
-      }
-      &#drop2 {
-        left: 30%;
-        .card:first-child {
-          transform: translate(125%, 55px) !important;
-        }
-      }
-      &#drop3 {
-        left: 50%;
-        .card:first-child {
-          transform: translate(125%, 55px) !important;
-        }
-      }
-      &#drop4 {
-        left: 70%;
-        .card:first-child {
-          transform: translate(125%, 55px) !important;
-        }
       }
     }

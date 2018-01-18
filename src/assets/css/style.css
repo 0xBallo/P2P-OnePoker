@@ -1,13 +1,17 @@
 /*Scoreboard Section*/
 body {
-  background-color: #45a173; }
-
-.columns {
-  height: 30%;
-  min-height: 200px; }
+  background-color: #9bc4b0; }
 
 .container {
   height: 100%; }
+
+.columns.deck,
+.columns.dropzone {
+  height: 30%;
+  min-height: 200px; }
+
+#deck {
+  padding-top: 10%; }
 
 .scoreboard {
   background-image: url("../images/scoreboard-bg.png");
@@ -16,9 +20,6 @@ body {
   background-position: center center;
   width: 350px;
   height: 400px;
-  position: fixed;
-  top: 25%;
-  left: 80%;
   transform: rotate(5deg); }
   .scoreboard .title {
     transform: rotate(-19deg);
@@ -39,6 +40,8 @@ body {
     margin-left: 3.8rem; }
     .scoreboard .scores ul {
       margin-top: 0; }
+      .scoreboard .scores ul li {
+        margin-top: 0; }
   .scoreboard .dsum {
     transform: rotate(-14deg);
     margin-left: 4rem;
@@ -49,34 +52,3 @@ body {
     padding-left: 6rem;
     padding-top: .2rem;
     font-size: 150%; }
-
-.dropzone {
-  z-index: 1;
-  width: 200px;
-  height: 400px;
-  position: fixed;
-  top: calc(75% + 1.5rem);
-  -webkit-transform: translate3d(-50%, -50%, 0);
-  -moz-transform: translate3d(-50%, -50%, 0);
-  -o-transform: translate3d(-50%, -50%, 0);
-  -ms-transform: translate3d(-50%, -50%, 0);
-  transform: translate3d(-50%, -50%, 0);
-  border: 1px solid yellowgreen; }
-  .dropzone .card {
-    position: absolute; }
-  .dropzone#drop1 {
-    left: 10%; }
-    .dropzone#drop1 .card:first-child {
-      transform: translate(125%, 55px) !important; }
-  .dropzone#drop2 {
-    left: 30%; }
-    .dropzone#drop2 .card:first-child {
-      transform: translate(125%, 55px) !important; }
-  .dropzone#drop3 {
-    left: 50%; }
-    .dropzone#drop3 .card:first-child {
-      transform: translate(125%, 55px) !important; }
-  .dropzone#drop4 {
-    left: 70%; }
-    .dropzone#drop4 .card:first-child {
-      transform: translate(125%, 55px) !important; }

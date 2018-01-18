@@ -188,8 +188,9 @@ function changeCard(event) {
     card.unmount();
     card.mount(event.currentTarget);
 
-    offsetY = 55 + ((event.currentTarget.childElementCount - 1) * 30);
-    card.$el.style.transform = 'translate(125%, ' + offsetY + 'px)';
+    offsetY = 0 + ((event.currentTarget.childElementCount - 1) * 30) - 10;
+    card.$el.style.transform = 'translate(0, ' + offsetY + 'px)';
+    card.$el.style.zIndex = 40;
     if (rowComplete()) {
       dropsLock = [false, false, false, false];
     }
