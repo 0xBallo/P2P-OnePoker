@@ -2,6 +2,13 @@
 
 > OnePoker browser P2P Game
 
+## External Libraries
+
+All Library are already included in project:
+
+- [Material-Colors](https://github.com/shuhei/material-colors): Material design name CSS colors (https://material.io/guidelines/style/color.html#color-color-palette).
+
+
 ## Project Structure
 
 ### assets/css
