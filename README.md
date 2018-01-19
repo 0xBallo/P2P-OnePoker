@@ -6,7 +6,7 @@
 
 All Library are already included in project:
 
-- [Material-Colors](https://github.com/shuhei/material-colors): Material design name CSS colors (https://material.io/guidelines/style/color.html#color-color-palette).
+- [material-colors](https://github.com/shuhei/material-colors): Colors from [Google's Material Design](https://material.io/guidelines/style/color.html#color-color-palette) made available to coders with CSS's classes.
 
 - [deck-of-cards](https://github.com/pakastin/deck-of-cards): Js & Css library to manipulate a deck of cards.
 

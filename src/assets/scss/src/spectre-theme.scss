@@ -1,11 +1,7 @@
-// spectre-theme.scss
-// Define variables to override default ones
-$primary-color: #3f51b5;
-$dark-color: #002984;
-$success-color: #4CAF50;
-$warning-color: #FF9800;
-$error-color: #F44336;
-// Import full Spectre source code
+@import "../lib/_variables";
+
+/* Import full Spectre source code */
+
 @import "../../../../node_modules/spectre.css/src/spectre";
 @import "../../../../node_modules/spectre.css/src/spectre-icons";
 @import "../../../../node_modules/spectre.css/src/spectre-exp";
