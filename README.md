@@ -16,23 +16,23 @@ All Library are already included in project:
 
 ## Project Structure
 
-### assets/css
+### release/css
 
 Stylesheets for the project. To change CSS styles edit **style.css**.
 
-### assets/images
+### release/images
 
 Contains all image use in website.
 
-### assets/js
+### release/js
 
 Scripts style for project. Edit **script.js** to enter custom scripts.
 
-### assets/scss/lib
+### src/scss/lib
 
 Library for Sass files. *Currently not used*.
 
-### assets/scss/src
+### src/scss/src
 
 Sass files for styles. *Currently not used*.
 
