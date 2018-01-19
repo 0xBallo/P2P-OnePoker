@@ -8,6 +8,11 @@ All Library are already included in project:
 
 - [Material-Colors](https://github.com/shuhei/material-colors): Material design name CSS colors (https://material.io/guidelines/style/color.html#color-color-palette).
 
+- [deck-of-cards](https://github.com/pakastin/deck-of-cards): Js & Css library to manipulate a deck of cards.
+
+- [pokersolver](https://github.com/goldfire/pokersolver): Js library to calc score in different card games.
+
+- [Spectre.css](https://picturepan2.github.io/spectre/index.html): Lightweight, responsive and modern CSS framework.
 
 ## Project Structure
 
