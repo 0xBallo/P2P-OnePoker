@@ -16,11 +16,11 @@ Contains all image use in website.
 
 Scripts style for project. Edit **script.js** to enter custom scripts.
 
-### assets/lib
+### assets/scss/lib
 
 Library for Sass files. *Currently not used*.
 
-### assets/scss
+### assets/scss/src
 
 Sass files for styles. *Currently not used*.
 

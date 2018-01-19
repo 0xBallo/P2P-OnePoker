@@ -1,17 +1,27 @@
-/*Scoreboard Section*/
-body {
-  background-color: #9bc4b0; }
-
 .container {
-  height: 100%; }
+  height: 100%;
+}
+
+.navbar {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+}
+
+.container .container {
+  padding-top: 1rem;
+}
 
 .columns.deck,
 .columns.dropzone {
   height: 30%;
-  min-height: 200px; }
+  min-height: 200px;
+}
 
 #deck {
-  padding-top: 10%; }
+  padding-top: 10%;
+}
 
 .scoreboard {
   background-image: url("../images/scoreboard-bg.png");
@@ -20,35 +30,58 @@ body {
   background-position: center center;
   width: 350px;
   height: 400px;
-  transform: rotate(5deg); }
-  .scoreboard .title {
-    transform: rotate(-19deg);
-    padding-left: 3rem;
-    padding-top: 2.3rem;
-    font-size: 130%; }
-  .scoreboard .dtitle,
-  .scoreboard .dsum {
-    height: 1px;
-    background: #000; }
-  .scoreboard .dtitle {
-    transform: rotate(-14deg);
-    margin-left: 3rem;
-    margin-top: 0.7rem;
-    margin-right: 4.5rem; }
-  .scoreboard .scores {
-    transform: rotate(-13deg);
-    margin-left: 3.8rem; }
-    .scoreboard .scores ul {
-      margin-top: 0; }
-      .scoreboard .scores ul li {
-        margin-top: 0; }
-  .scoreboard .dsum {
-    transform: rotate(-14deg);
-    margin-left: 4rem;
-    margin-top: 0.7rem;
-    margin-right: 4rem; }
-  .scoreboard .sum {
-    transform: rotate(-17deg);
-    padding-left: 6rem;
-    padding-top: .2rem;
-    font-size: 150%; }
+  transform: rotate(5deg);
+}
+
+.scoreboard .title {
+  transform: rotate(-19deg);
+  padding-left: 3rem;
+  padding-top: 2.3rem;
+  font-size: 130%;
+}
+
+.scoreboard .dtitle,
+.scoreboard .dsum {
+  height: 1px;
+  background: #000;
+}
+
+.scoreboard .dtitle {
+  transform: rotate(-14deg);
+  margin-left: 3rem;
+  margin-top: 0.7rem;
+  margin-right: 4.5rem;
+}
+
+.scoreboard .scores {
+  transform: rotate(-13deg);
+  margin-left: 3.8rem;
+}
+
+.scoreboard .scores ul {
+  margin-top: 0;
+}
+
+.scoreboard .scores ul li {
+  margin-top: 0;
+}
+
+.scoreboard .dsum {
+  transform: rotate(-14deg);
+  margin-left: 4rem;
+  margin-top: 0.7rem;
+  margin-right: 4rem;
+}
+
+.scoreboard .sum {
+  transform: rotate(-17deg);
+  padding-left: 6rem;
+  padding-top: .2rem;
+  font-size: 150%;
+}
+
+.divider-vert::before {
+  border-left: 0;
+  border-bottom: 1px solid;
+}
+

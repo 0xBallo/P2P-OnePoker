@@ -6,47 +6,65 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>P2P OnePoker</title>
-  <link rel="stylesheet" href="./assets/css/spectre.min.css">
-  <link rel="stylesheet" href="./assets/css/spectre-exp.min.css">
-  <link rel="stylesheet" href="./assets/css/spectre-icons.min.css">
-  <link rel="stylesheet" href="./assets/css/deck.css">
-  <link rel="stylesheet" href="./assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/spectre-theme.css">
+  <link rel="stylesheet" href="assets/css/colors.css">
+  <link rel="stylesheet" href="assets/css/deck.css">
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
-<body>
+<body class="bg-indigo-100">
   <div class="container">
-    <h1 class="text-capitalize">OnePoker P2P Browser Game</h1>
-    <div class="columns">
-      <div class="column col-6">
-        <button id="start" class="btn btn-primary">Start new Game!</button>
-        <button id="next" class="btn">Next Match!</button>
+    <header class="navbar bg-indigo-200">
+      <section class="navbar-section">
+        <a href="#" class="navbar-brand mr-2">Home</a>
+        <a href="#" class="btn btn-link">Single Player</a>
+        <a href="#" class="btn btn-link">Multi Player</a>
+      </section>
+      <section class="navbar-center">
+        <h1 class="text-capitalize">OnePoker P2P Browser Game</h1>
+      </section>
+      <section class="navbar-section">
+
+        <figure class="avatar avatar-lg mine">
+          <img src="assets/images/avatar-1.png" alt="avatar">
+        </figure>
+      </section>
+    </header>
+
+    <div class="container">
+      <div class="columns">
+        <div class="column col-6">
+          <button id="start" class="btn btn-primary">Start new Game!</button>
+          <button id="next" class="btn">Next Match!</button>
+        </div>
+        <div class="column col-6"></div>
       </div>
-      <div class="column col-6"></div>
-    </div>
-    <div class="columns deck">
-      <div class="column col-4"></div>
-      <div id="deck" class="column col-4 text-center"></div>
-      <div class="columns col-1"></div>
-      <div class="column col-3">
-        <div class="scoreboard">
-          <div class="title">Score</div>
-          <div class="dtitle"></div>
-          <div class="scores">
-            <ul id="scores">
-            </ul>
+      <div class="columns deck">
+        <div class="column col-4"></div>
+        <div id="deck" class="column col-4 text-center"></div>
+        <div class="columns col-1"></div>
+        <div class="column col-3">
+          <div class="scoreboard">
+            <div class="title">Score</div>
+            <div class="dtitle"></div>
+            <div class="scores">
+              <ul id="scores">
+              </ul>
+            </div>
+            <div class="dsum"></div>
+            <div class="sum" id="sum">0</div>
           </div>
-          <div class="dsum"></div>
-          <div class="sum" id="sum">0</div>
         </div>
       </div>
-    </div>
-    <div class="columns col-gapless dropzone">
-      <div class="column col-4"></div>
-      <div id="drop1" class="column col-1 col-mx-auto text-center drop"></div>
-      <div id="drop2" class="column col-1 col-mx-auto text-center drop"></div>
-      <div id="drop3" class="column col-1 col-mx-auto text-center drop"></div>
-      <div id="drop4" class="column col-1 col-mx-auto text-center drop"></div>
-      <div class="column col-4"></div>
+      <div class="divider-vert color-indigo-200 text-center">CARDS</div>
+      <div class="columns dropzone">
+        <div class="column col-4"></div>
+        <div id="drop1" class="column col-1 col-mx-auto text-center drop"></div>
+        <div id="drop2" class="column col-1 col-mx-auto text-center drop"></div>
+        <div id="drop3" class="column col-1 col-mx-auto text-center drop"></div>
+        <div id="drop4" class="column col-1 col-mx-auto text-center drop"></div>
+        <div class="column col-4"></div>
+      </div>
     </div>
   </div>
 
