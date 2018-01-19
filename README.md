@@ -2,30 +2,27 @@
 
 > OnePoker browser P2P Game
 
-## Required global npm packages for development
+## Project Structure
 
-### vue-cli
+### assets/css
 
-Prerequisites: [Node.js](https://nodejs.org/en/) (>=6.x, 8.x preferred), npm version 3+ and [Git](https://git-scm.com/).
+Stylesheets for the project. To change CSS styles edit **style.css**.
 
-``` bash
-npm install -g vue-cli
-```
+### assets/images
 
-## Build Setup
+Contains all image use in website.
 
-``` bash
-# install dependencies
-npm install
+### assets/js
 
-# serve with hot reload at localhost:8080
-npm run dev
+Scripts style for project. Edit **script.js** to enter custom scripts.
 
-# build for production with minification
-npm run build
-```
+### assets/lib
 
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
+Library for Sass files. *Currently not used*.
+
+### assets/scss
+
+Sass files for styles. *Currently not used*.
 
 ## Game Rules
 
