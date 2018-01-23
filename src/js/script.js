@@ -23,10 +23,36 @@ function changePage(event) {
   }
 }
 
+// Save nickname insert by user
+function chooseUsername(event) {
+  var name = document.getElementById('input-username').value;
+  document.querySelector('.navbar .username').innerHTML = name;
+  document.querySelector('.toast-success').classList.toggle('d-none');
+  setTimeout(() => {
+    document.querySelector('.toast-success').classList.add('d-none');
+  }, 3000);
+  document.querySelectorAll('.page-links a')
+    .forEach((el) => el.removeAttribute('disabled'));
+}
+
 // Add event handler for theme to the components
 function addHandlers() {
   document.querySelectorAll('.page-links .btn')
     .forEach((el) => el.addEventListener('click', changePage));
+
+  document.getElementById('btn-username').addEventListener('click', chooseUsername);
+
+  /* $drop1.addEventListener("mouseup", changeCard, false);
+  $drop2.addEventListener("mouseup", changeCard, false);
+  $drop3.addEventListener("mouseup", changeCard, false);
+  $drop4.addEventListener("mouseup", changeCard, false); */
+  $drop1.addEventListener("click", changeCard, false);
+  $drop2.addEventListener("click", changeCard, false);
+  $drop3.addEventListener("click", changeCard, false);
+  $drop4.addEventListener("click", changeCard, false);
+
+  $new.addEventListener("click", newGame, false);
+  $next.addEventListener("click", next, false);
 }
 
 
@@ -317,16 +343,4 @@ window.onload = function () {
   $sum = document.getElementById('sum');
 
   addHandlers();
-  /* $drop1.addEventListener("mouseup", changeCard, false);
-  $drop2.addEventListener("mouseup", changeCard, false);
-  $drop3.addEventListener("mouseup", changeCard, false);
-  $drop4.addEventListener("mouseup", changeCard, false); */
-  $drop1.addEventListener("click", changeCard, false);
-  $drop2.addEventListener("click", changeCard, false);
-  $drop3.addEventListener("click", changeCard, false);
-  $drop4.addEventListener("click", changeCard, false);
-
-  $new.addEventListener("click", newGame, false);
-  $next.addEventListener("click", next, false);
-
 };

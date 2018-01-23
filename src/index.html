@@ -17,8 +17,8 @@
     <header class="navbar bg-indigo-200">
       <section class="navbar-section page-links">
         <a href="#" data-link="home" class="btn btn-link active">Home</a>
-        <a href="#" data-link="singleplayer" class="btn btn-link">Single Player</a>
-        <a href="#" data-link="multiplayer" class="btn btn-link">Multi Player</a>
+        <a href="#" data-link="singleplayer" class="btn btn-link" disabled>Single Player</a>
+        <a href="#" data-link="multiplayer" class="btn btn-link" disabled>Multi Player</a>
       </section>
       <section class="navbar-center">
         <h1 class="text-capitalize">OnePoker P2P Browser Game</h1>
@@ -33,6 +33,22 @@
 
     <!-- Home Page -->
     <div data-page="home" class="container page active">
+      <h2 class="text-center">Choose a Nickname to Play!</h2>
+      <div class="columns">
+        <div class="column col-4"></div>
+        <div class="column col-4">
+          <div class="form-group">
+            <label class="form-label" for="input-user">Nickname</label>
+            <div class="toast toast-success d-none">
+              <button class="btn btn-clear float-right"></button>
+              Username saved in memory!
+            </div>
+            <input class="form-input" type="text" id="input-username" placeholder="Name">
+          </div>
+          <button id="btn-username" class="btn btn-block btn-lg btn-success">LET'S START!</button>
+        </div>
+        <div class="column col-4"></div>
+      </div>
     </div>
 
     <!-- Single Player Page -->
