@@ -12,6 +12,13 @@
   padding-right: 1rem;
   border-bottom-left-radius: 7px;
   border-bottom-right-radius: 7px; }
+  .navbar .username {
+    margin-right: 1rem;
+    font-weight: bold;
+    font-size: 120%; }
+  .navbar .btn.btn-link.active {
+    font-size: 110%;
+    font-weight: 500; }
 
 .divider-vert::before {
   border-left: 0;

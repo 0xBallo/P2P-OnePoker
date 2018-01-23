@@ -1,3 +1,39 @@
+/*
+  ================================== Theme Funcs =============================================
+*/
+
+// Function to change page
+function changePage(event) {
+  var destSrc = event.currentTarget;
+  var destination = destSrc.getAttribute('data-link');
+  var currSrc = document.querySelector('.page.active');
+  var current = currSrc.getAttribute('data-page');
+  var destPage;
+
+  event.preventDefault();
+
+  if (destination !== current) {
+    document.querySelector('.page-links .active').classList.toggle('active');
+    destSrc.classList.toggle('active');
+    currSrc.classList.toggle('active');
+    currSrc.classList.toggle('d-none');
+    destPage = document.querySelector('.page[data-page="' + destination + '"]');
+    destPage.classList.toggle('active');
+    destPage.classList.toggle('d-none');
+  }
+}
+
+// Add event handler for theme to the components
+function addHandlers() {
+  document.querySelectorAll('.page-links .btn')
+    .forEach((el) => el.addEventListener('click', changePage));
+}
+
+
+/*
+  ================================== Game Funcs =============================================
+*/
+
 //get card from deck
 function getCard($container, d) {
   var c;
@@ -259,30 +295,38 @@ function next() {
   start();
 }
 
+/*
+  ======================== Main Program =================================
+*/
 
-var $card = document.getElementById('deck');
-
-var $deck = document.getElementById('deck');
-var $drop1 = document.getElementById('drop1');
-var $drop2 = document.getElementById('drop2');
-var $drop3 = document.getElementById('drop3');
-var $drop4 = document.getElementById('drop4');
-var $new = document.getElementById('start');
-var $next = document.getElementById('next');
-var $scores = document.getElementById('scores');
-var $sum = document.getElementById('sum');
+var $card, $deck, $drop1, $drop2, $drop3, $drop4, $new, $next, $scores, $sum;
 var drops, dropsLock;
 var card, deck, removedCards;
 var sum, score;
 
-/* $drop1.addEventListener("mouseup", changeCard, false);
-$drop2.addEventListener("mouseup", changeCard, false);
-$drop3.addEventListener("mouseup", changeCard, false);
-$drop4.addEventListener("mouseup", changeCard, false); */
-$drop1.addEventListener("click", changeCard, false);
-$drop2.addEventListener("click", changeCard, false);
-$drop3.addEventListener("click", changeCard, false);
-$drop4.addEventListener("click", changeCard, false);
+window.onload = function () {
+  $card = document.getElementById('deck');
+  $deck = document.getElementById('deck');
+  $drop1 = document.getElementById('drop1');
+  $drop2 = document.getElementById('drop2');
+  $drop3 = document.getElementById('drop3');
+  $drop4 = document.getElementById('drop4');
+  $new = document.getElementById('start');
+  $next = document.getElementById('next');
+  $scores = document.getElementById('scores');
+  $sum = document.getElementById('sum');
 
-$new.addEventListener("click", newGame, false);
-$next.addEventListener("click", next, false);
+  addHandlers();
+  /* $drop1.addEventListener("mouseup", changeCard, false);
+  $drop2.addEventListener("mouseup", changeCard, false);
+  $drop3.addEventListener("mouseup", changeCard, false);
+  $drop4.addEventListener("mouseup", changeCard, false); */
+  $drop1.addEventListener("click", changeCard, false);
+  $drop2.addEventListener("click", changeCard, false);
+  $drop3.addEventListener("click", changeCard, false);
+  $drop4.addEventListener("click", changeCard, false);
+
+  $new.addEventListener("click", newGame, false);
+  $next.addEventListener("click", next, false);
+
+};
