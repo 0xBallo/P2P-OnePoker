@@ -28,11 +28,7 @@ Contains all image use in website.
 
 Scripts style for project. Edit **script.js** to enter custom scripts.
 
-### src/scss/lib
-
-Library for Sass files. *Currently not used*.
-
-### src/scss/src
+### src/scss
 
 Sass files for styles. *Currently not used*.
 

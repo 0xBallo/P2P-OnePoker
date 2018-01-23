@@ -9,7 +9,7 @@
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
   cursor: default; }
-  .card:before, .card:after {
+  .card::before, .card::after {
     position: absolute;
     font-size: 0.7rem;
     text-align: center;
@@ -18,10 +18,10 @@
     white-space: pre-line;
     width: 0.55rem;
     letter-spacing: -0.1rem; }
-  .card:before {
+  .card::before {
     top: 0.15rem;
     left: 0; }
-  .card:after {
+  .card::after {
     bottom: 0.1rem;
     right: 0;
     -webkit-transform: rotate(180deg);

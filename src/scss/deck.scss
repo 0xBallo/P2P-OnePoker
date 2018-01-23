@@ -9,8 +9,8 @@
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
   cursor: default;
-  &:before,
-  &:after {
+  &::before,
+  &::after {
     position: absolute;
     font-size: 0.7rem;
     text-align: center;
@@ -20,11 +20,11 @@
     width: 0.55rem;
     letter-spacing: -0.1rem;
   }
-  &:before {
+  &::before {
     top: 0.15rem;
     left: 0;
   }
-  &:after {
+  &::after {
     bottom: 0.1rem;
     right: 0;
     -webkit-transform: rotate(180deg);
