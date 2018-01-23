@@ -16,15 +16,15 @@ All Library are already included in project:
 
 ## Project Structure
 
-### release/css
+### src/css
 
 Stylesheets for the project. To change CSS styles edit **style.css**.
 
-### release/images
+### src/assets/images
 
 Contains all image use in website.
 
-### release/js
+### src/js
 
 Scripts style for project. Edit **script.js** to enter custom scripts.
 

@@ -1,14 +1,34 @@
     @import '../lib/_variables';
-    body {
-      background-color: $bgcolor;
-    } //Theme overriding
+    /*Theme overriding*/
+
     .container {
       height: 100%;
-    } //Custom styles
-    .columns.deck,
-    .columns.dropzone {
-      height: 30%;
-      min-height: 200px;
+      .container {
+        padding-top: 1rem;
+      }
+    }
+
+    .navbar {
+      padding-left: 1rem;
+      padding-right: 1rem;
+      border-bottom-left-radius: 7px;
+      border-bottom-right-radius: 7px;
+    }
+
+    .divider-vert {
+      &::before {
+        border-left: 0;
+        border-bottom: 1px solid;
+      }
+    }
+    /* Custom styles */
+
+    .columns {
+      &.deck,
+      &.dropzone {
+        height: 30%;
+        min-height: 200px;
+      }
     }
 
     #deck {
