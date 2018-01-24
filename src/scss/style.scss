@@ -36,15 +36,17 @@
       &.deck,
       &.dropzone {
         height: 35%;
-        min-height: 200px;
         .drop {
           z-index: 100;
         }
       }
+      &.dropzone {
+        min-height: 200px;
+      }
     }
 
     #deck {
-      padding-top: 10%;
+      padding-top: 4%;
     }
 
     .scoreboard {
@@ -52,8 +54,8 @@
       background-repeat: no-repeat;
       background-size: contain;
       background-position: center center;
-      width: 350px;
-      height: 400px;
+      width: 262.5px;
+      height: 300px;
       transform: rotate(5deg);
       .title {
         transform: rotate(-19deg);

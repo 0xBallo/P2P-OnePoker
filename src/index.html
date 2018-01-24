@@ -207,11 +207,10 @@
     <!-- Single Player Page -->
     <div data-page="singleplayer" class="container page d-none">
       <div class="columns">
-        <div class="column col-6">
+        <div class="column col-6 col-mr-auto">
           <button id="start" class="btn btn-primary">Start new Game!</button>
           <button id="next" class="btn" disabled>Next Match!</button>
         </div>
-        <div class="column col-6"></div>
       </div>
       <div class="columns deck">
         <div class="column col-4"></div>
@@ -242,6 +241,11 @@
 
     <!-- Multi Player Page -->
     <div data-page="multiplayer" class="container page d-none">
+      <!-- TODO: multiplayer page similar to single player with other players in addition -->
+      <!-- NOTE: 
+            - Use element.dispatchEvent(new Event('click')) to trigger event in dropzones and use animations
+            - Change the extract card with deck-of-cards API to make it the same for all players
+            - Use an invisible div to cover clickable area to user when it's not his turn -->
     </div>
 
   </div>

@@ -26,21 +26,23 @@
 
 /* Custom styles */
 .columns.deck, .columns.dropzone {
-  height: 35%;
-  min-height: 200px; }
+  height: 35%; }
   .columns.deck .drop, .columns.dropzone .drop {
     z-index: 100; }
 
+.columns.dropzone {
+  min-height: 200px; }
+
 #deck {
-  padding-top: 10%; }
+  padding-top: 4%; }
 
 .scoreboard {
   background-image: url("../assets/images/scoreboard-bg.png");
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center center;
-  width: 350px;
-  height: 400px;
+  width: 262.5px;
+  height: 300px;
   transform: rotate(5deg); }
   .scoreboard .title {
     transform: rotate(-19deg);

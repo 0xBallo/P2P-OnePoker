@@ -64,19 +64,26 @@ function addHandlers() {
 function getCard($container, d) {
   var c;
   if ((drops[0].length === 5 &&
-      drops[0].length === drops[1].length &&
-      drops[1].length === drops[2].length &&
-      drops[2].length === drops[3].length) || instantWin) {
+      drops[1].length === 5 &&
+      drops[2].length === 5 &&
+      drops[3].length === 5) || instantWin) {
     deck.flip();
     deck.fan();
     score = calcScore();
-    sum += score;
     var $li = document.createElement("li");
+    if ($scores.childElementCount >= 5) {
+      $scores.innerHTML = '';
+      var li = document.createElement('li');
+      li.innerHTML = sum;
+      $scores.appendChild(li);
+    }
+    sum += score;
     $li.innerHTML = score;
     $scores.appendChild($li);
     $sum.innerHTML = sum;
     //check win
     if (sum >= 502) {
+      //TODO: change alert to other!(Maybe animation!)
       alert('You won OnePoker!!');
     } else {
       $next.removeAttribute('disabled');
