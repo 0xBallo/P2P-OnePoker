@@ -10,10 +10,17 @@ gulp.task('sass', function () {
     .pipe(browserSync.stream());
 });
 
-// Move Js files to /src/js folder7
+// Move Js files to /src/js folder
 gulp.task('js', function () {
   return gulp.src(['node_modules/deck-of-cards/dist/deck.min.js', 'node_modules/pokersolver/pokersolver.js'])
     .pipe(gulp.dest('src/js'))
+    .pipe(browserSync.stream());
+});
+
+// Move CSS files to /src/css folder
+gulp.task('CSS', function () {
+  return gulp.src(['node_modules/material-colors/dist/colors.css'])
+    .pipe(gulp.dest('src/css'))
     .pipe(browserSync.stream());
 });
 
@@ -25,8 +32,7 @@ gulp.task('serve', ['sass'], function () {
   });
 
   gulp.watch(['src/scss/*.scss'], ['sass']);
-  gulp.watch('src/*.html').on('change', browserSync.reload);
-  gulp.watch('src/js/*.js').on('change', browserSync.reload);
+  gulp.watch(['src/*.html', 'src/js/*.js', 'src/css/*.css']).on('change', browserSync.reload);
 })
 
-gulp.task('default', ['js', 'serve']);
+gulp.task('default', ['js', 'CSS', 'serve']);
