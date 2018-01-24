@@ -63,10 +63,10 @@ function addHandlers() {
 //get card from deck
 function getCard($container, d) {
   var c;
-  if (drops[0].length === 5 &&
-    drops[0].length === drops[1].length &&
-    drops[1].length === drops[2].length &&
-    drops[2].length === drops[3].length) {
+  if ((drops[0].length === 5 &&
+      drops[0].length === drops[1].length &&
+      drops[1].length === drops[2].length &&
+      drops[2].length === drops[3].length) || instantWin) {
     deck.flip();
     deck.fan();
     score = calcScore();
@@ -75,10 +75,16 @@ function getCard($container, d) {
     $li.innerHTML = score;
     $scores.appendChild($li);
     $sum.innerHTML = sum;
+    //check win
+    if (sum >= 502) {
+      alert('You won OnePoker!!');
+    } else {
+      $next.removeAttribute('disabled');
+    }
   } else {
     c = d.cards.pop();
     c.mount($container);
-    c.enableDragging();
+    /* c.enableDragging(); */
     c.setSide('front');
   }
   return c;
@@ -180,27 +186,68 @@ function rowComplete() {
 
 //Place first 4 cards in dropzones
 function first4Cards(d) {
-  var c;
+  var c1, c2, c3, c4;
   //Dropzone 1
-  c = d.cards.pop();
-  c.mount($drop1);
-  c.setSide('front');
-  drops[0].push(deck2pokersolver(c));
+  c1 = d.cards.pop();
+  c1.animateTo({
+    delay: 0,
+    duration: 500,
+    ease: 'quartOut',
+    x: $drop1.getBoundingClientRect().x - c1.$el.getBoundingClientRect().x,
+    y: $drop1.getBoundingClientRect().y - c1.$el.getBoundingClientRect().y,
+    onComplete: function () {
+      c1.setSide('front');
+    }
+  });
+  r1 = c1.rank;
+  drops[0].push(deck2pokersolver(c1));
   //Dropzone 2
-  c = d.cards.pop();
-  c.mount($drop2);
-  c.setSide('front');
-  drops[1].push(deck2pokersolver(c));
+  c2 = d.cards.pop();
+  c2.animateTo({
+    delay: 500,
+    duration: 500,
+    ease: 'quartOut',
+    x: $drop2.getBoundingClientRect().x - c2.$el.getBoundingClientRect().x,
+    y: $drop2.getBoundingClientRect().y - c2.$el.getBoundingClientRect().y,
+    onComplete: function () {
+      c2.setSide('front');
+    }
+  });
+  r2 = c2.rank;
+  drops[1].push(deck2pokersolver(c2));
   //Dropzone 3
-  c = d.cards.pop();
-  c.mount($drop3);
-  c.setSide('front');
-  drops[2].push(deck2pokersolver(c));
+  c3 = d.cards.pop();
+  c3.animateTo({
+    delay: 1000,
+    duration: 500,
+    ease: 'quartOut',
+    x: $drop3.getBoundingClientRect().x - c3.$el.getBoundingClientRect().x,
+    y: $drop3.getBoundingClientRect().y - c3.$el.getBoundingClientRect().y,
+    onComplete: function () {
+      c3.setSide('front');
+    }
+  });
+  r3 = c3.rank;
+  drops[2].push(deck2pokersolver(c3));
   //Dropzone 4
-  c = d.cards.pop();
-  c.mount($drop4);
-  c.setSide('front');
-  drops[3].push(deck2pokersolver(c));
+  c4 = d.cards.pop();
+  c4.animateTo({
+    delay: 1500,
+    duration: 500,
+    ease: 'quartOut',
+    x: $drop4.getBoundingClientRect().x - c4.$el.getBoundingClientRect().x,
+    y: $drop4.getBoundingClientRect().y - c4.$el.getBoundingClientRect().y,
+    onComplete: function () {
+      c4.setSide('front');
+    }
+  });
+  r4 = c4.rank;
+  drops[3].push(deck2pokersolver(c4));
+  //check instant win
+  if (c1.rank === c2.rank && c2.rank === c3.rank && c3.rank === c4.rank) {
+    instantWin = true;
+    score = 502;
+  }
 }
 
 //place card on dropzone and get new one
@@ -218,6 +265,7 @@ function changeCard(event) {
         drops[0].push(deck2pokersolver(card));
         dropsLock[0] = true;
         regular = true;
+        offsetY = drops[0].length;
       }
       break;
     case 'drop2':
@@ -225,6 +273,7 @@ function changeCard(event) {
         drops[1].push(deck2pokersolver(card));
         dropsLock[1] = true;
         regular = true;
+        offsetY = drops[1].length;
       }
       break;
     case 'drop3':
@@ -232,6 +281,7 @@ function changeCard(event) {
         drops[2].push(deck2pokersolver(card));
         dropsLock[2] = true;
         regular = true;
+        offsetY = drops[2].length;
       }
       break;
     case 'drop4':
@@ -239,19 +289,26 @@ function changeCard(event) {
         drops[3].push(deck2pokersolver(card));
         dropsLock[3] = true;
         regular = true;
+        offsetY = drops[3].length;
       }
       break;
     default:
       break;
   }
 
-  card.disableDragging();
+  /* card.disableDragging(); */
   if (regular) {
-    card.unmount();
-    card.mount(event.currentTarget);
-
-    offsetY = 0 + ((event.currentTarget.childElementCount - 1) * 30) - 10;
-    card.$el.style.transform = 'translate(0, ' + offsetY + 'px)';
+    offsetY = (offsetY - 1) * 30;
+    card.animateTo({
+      delay: 0,
+      duration: 500,
+      ease: 'quartOut',
+      x: event.currentTarget.getBoundingClientRect().x - card.$el.getBoundingClientRect().x,
+      y: event.currentTarget.getBoundingClientRect().y - card.$el.getBoundingClientRect().y + offsetY,
+      onComplete: function () {
+        //c3.setSide('front');
+      }
+    });
     card.$el.style.zIndex = 40;
     if (rowComplete()) {
       dropsLock = [false, false, false, false];
@@ -265,7 +322,7 @@ function changeCard(event) {
       x: 0,
       y: 0
     });
-    card.enableDragging();
+    /* card.enableDragging(); */
   }
 
 }
@@ -301,11 +358,15 @@ function start() {
 
   deck.mount($deck);
   deck.shuffle();
-  first4Cards(deck);
 
-  // Select the first card
-  card = getCard($card, deck);
+  setTimeout(function () {
+    first4Cards(deck);
+  }, 1000);
 
+  setTimeout(function () {
+    // Select the first card
+    card = getCard($card, deck);
+  }, 1400);
 }
 
 //Start new game
@@ -318,6 +379,7 @@ function newGame() {
 
 //save score and start new game
 function next() {
+  $next.setAttribute('disabled', true);
   start();
 }
 
@@ -329,6 +391,7 @@ var $card, $deck, $drop1, $drop2, $drop3, $drop4, $new, $next, $scores, $sum;
 var drops, dropsLock;
 var card, deck, removedCards;
 var sum, score;
+var instantWin = false;
 
 window.onload = function () {
   $card = document.getElementById('deck');

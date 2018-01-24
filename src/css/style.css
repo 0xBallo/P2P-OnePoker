@@ -26,8 +26,10 @@
 
 /* Custom styles */
 .columns.deck, .columns.dropzone {
-  height: 30%;
+  height: 35%;
   min-height: 200px; }
+  .columns.deck .drop, .columns.dropzone .drop {
+    z-index: 100; }
 
 #deck {
   padding-top: 10%; }

@@ -35,8 +35,11 @@
     .columns {
       &.deck,
       &.dropzone {
-        height: 30%;
+        height: 35%;
         min-height: 200px;
+        .drop {
+          z-index: 100;
+        }
       }
     }
 
