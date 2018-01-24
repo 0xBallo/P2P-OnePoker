@@ -303,7 +303,7 @@ function changeCard(event) {
       delay: 0,
       duration: 500,
       ease: 'quartOut',
-      x: event.currentTarget.getBoundingClientRect().x - card.$el.getBoundingClientRect().x,
+      x: event.currentTarget.getBoundingClientRect().x - card.$el.getBoundingClientRect().x + 7.25 + card.x,
       y: event.currentTarget.getBoundingClientRect().y - card.$el.getBoundingClientRect().y + offsetY,
       onComplete: function () {
         //c3.setSide('front');
