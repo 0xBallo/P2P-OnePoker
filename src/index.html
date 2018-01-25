@@ -44,9 +44,9 @@
               <button class="btn btn-clear float-right"></button>
               Username saved in memory!
             </div>
-            <input class="form-input" type="text" id="input-username" placeholder="Name">
+            <input class="form-input" type="text" id="inputUsername" placeholder="Name">
           </div>
-          <button id="btn-username" class="btn btn-block btn-lg btn-success">LET'S START!</button>
+          <button class="btn btn-block btn-lg btn-success" onclick="chooseUsername()">LET'S START!</button>
         </div>
         <div class="column col-4"></div>
       </div>
@@ -208,13 +208,13 @@
     <div data-page="singleplayer" class="container page d-none">
       <div class="columns">
         <div class="column col-6 col-mr-auto">
-          <button id="start" class="btn btn-primary">Start new Game!</button>
-          <button id="next" class="btn" disabled>Next Match!</button>
+          <button id="singleStart" class="btn btn-primary">Start new Game!</button>
+          <button id="singleNext" class="btn" disabled>Next Match!</button>
         </div>
       </div>
-      <div class="columns deck">
+      <div class="columns cardsdeck">
         <div class="column col-4"></div>
-        <div id="deck" class="column col-4 text-center"></div>
+        <div class="column col-4 text-center deck"></div>
         <div class="columns col-1"></div>
         <div class="column col-3">
           <div class="scoreboard">
@@ -225,16 +225,16 @@
               </ul>
             </div>
             <div class="dsum"></div>
-            <div class="sum" id="sum">0</div>
+            <div class="sum">0</div>
           </div>
         </div>
       </div>
       <div class="columns dropzone">
         <div class="column col-4"></div>
-        <div id="drop1" class="column col-1 col-mx-auto drop"></div>
-        <div id="drop2" class="column col-1 col-mx-auto drop"></div>
-        <div id="drop3" class="column col-1 col-mx-auto drop"></div>
-        <div id="drop4" class="column col-1 col-mx-auto drop"></div>
+        <div data-pile="1" class="column col-1 col-mx-auto drop"></div>
+        <div data-pile="2" class="column col-1 col-mx-auto drop"></div>
+        <div data-pile="3" class="column col-1 col-mx-auto drop"></div>
+        <div data-pile="4" class="column col-1 col-mx-auto drop"></div>
         <div class="column col-4"></div>
       </div>
     </div>
@@ -246,11 +246,40 @@
             - Use element.dispatchEvent(new Event('click')) to trigger event in dropzones and use animations
             - Change the extract card with deck-of-cards API to make it the same for all players
             - Use an invisible div to cover clickable area to user when it's not his turn -->
+      <div class="columns">
+        <div class="column col-6 col-mr-auto">
+          <button id="multiCreate" class="btn btn-primary">Create Game</button>
+          <button id="multiJoin" class="btn btn-primary">Join Game</button>
+        </div>
+      </div>
+      <div class="columns cardsdeck">
+        <div class="column col-4"></div>
+        <div class="column col-4 text-center deck"></div>
+        <div class="columns col-1"></div>
+        <div class="column col-3">
+          <div class="scoreboard">
+            <div class="title">Score</div>
+            <div class="dtitle"></div>
+            <div class="scores">
+              <ul id="scores">
+              </ul>
+            </div>
+            <div class="dsum"></div>
+            <div class="sum">0</div>
+          </div>
+        </div>
+      </div>
+      <div class="columns dropzone">
+        <div class="column col-4"></div>
+        <div data-pile="1" class="column col-1 col-mx-auto drop"></div>
+        <div data-pile="2" class="column col-1 col-mx-auto drop"></div>
+        <div data-pile="3" class="column col-1 col-mx-auto drop"></div>
+        <div data-pile="4" class="column col-1 col-mx-auto drop"></div>
+        <div class="column col-4"></div>
+      </div>
+      <div class="blocker"></div>
     </div>
-
   </div>
-
-
 
   <script src="js/deck.min.js"></script>
   <script src="js/pokersolver.js"></script>

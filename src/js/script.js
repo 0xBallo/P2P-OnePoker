@@ -12,6 +12,7 @@ function changePage(event) {
 
   event.preventDefault();
 
+  //TODO: chek if game is start and ask what to do
   if (destination !== current) {
     document.querySelector('.page-links .active').classList.toggle('active');
     destSrc.classList.toggle('active');
@@ -20,12 +21,13 @@ function changePage(event) {
     destPage = document.querySelector('.page[data-page="' + destination + '"]');
     destPage.classList.toggle('active');
     destPage.classList.toggle('d-none');
+    getActiveUIElements();
   }
 }
 
 // Save nickname insert by user
 function chooseUsername(event) {
-  var name = document.getElementById('input-username').value;
+  var name = document.getElementById('inputUsername').value;
   document.querySelector('.navbar .username').innerHTML = name;
   document.querySelector('.toast-success').classList.toggle('d-none');
   setTimeout(() => {
@@ -39,20 +41,23 @@ function chooseUsername(event) {
 function addHandlers() {
   document.querySelectorAll('.page-links .btn')
     .forEach((el) => el.addEventListener('click', changePage));
-
-  document.getElementById('btn-username').addEventListener('click', chooseUsername);
-
-  /* $drop1.addEventListener("mouseup", changeCard, false);
-  $drop2.addEventListener("mouseup", changeCard, false);
-  $drop3.addEventListener("mouseup", changeCard, false);
-  $drop4.addEventListener("mouseup", changeCard, false); */
-  $drop1.addEventListener("click", changeCard, false);
-  $drop2.addEventListener("click", changeCard, false);
-  $drop3.addEventListener("click", changeCard, false);
-  $drop4.addEventListener("click", changeCard, false);
+  document.querySelectorAll('.drop')
+    .forEach((el) => el.addEventListener("click", dropCard, false));
 
   $new.addEventListener("click", newGame, false);
   $next.addEventListener("click", next, false);
+}
+
+// Get active ui elements reference
+function getActiveUIElements() {
+  $scores = document.querySelector('.active .scores>ul');
+  $sum = document.querySelector('.active .scoreboard>.sum');
+  $deck = document.querySelector('.active .deck');
+  $card = document.querySelector('.active .deck');
+  $drop1 = document.querySelector('.active .drop[data-pile="1"]');
+  $drop2 = document.querySelector('.active .drop[data-pile="2"]');
+  $drop3 = document.querySelector('.active .drop[data-pile="3"]');
+  $drop4 = document.querySelector('.active .drop[data-pile="4"]');
 }
 
 
@@ -60,8 +65,8 @@ function addHandlers() {
   ================================== Game Funcs =============================================
 */
 
-//get card from deck
-function getCard($container, d) {
+//pick card from deck
+function pickCard($container, d) {
   var c;
   if ((drops[0].length === 5 &&
       drops[1].length === 5 &&
@@ -91,7 +96,6 @@ function getCard($container, d) {
   } else {
     c = d.cards.pop();
     c.mount($container);
-    /* c.enableDragging(); */
     c.setSide('front');
   }
   return c;
@@ -258,52 +262,22 @@ function first4Cards(d) {
 }
 
 //place card on dropzone and get new one
-function changeCard(event) {
-  var regular, offsetY;
+function dropCard(event) {
+  var index, regular, offsetY;
 
   // prevent default action (open as link for some elements) 
   event.preventDefault();
   // assume non regular moves
   regular = false;
   //update piles info
-  switch (event.currentTarget.id) {
-    case 'drop1':
-      if (!dropsLock[0]) {
-        drops[0].push(deck2pokersolver(card));
-        dropsLock[0] = true;
-        regular = true;
-        offsetY = drops[0].length;
-      }
-      break;
-    case 'drop2':
-      if (!dropsLock[1]) {
-        drops[1].push(deck2pokersolver(card));
-        dropsLock[1] = true;
-        regular = true;
-        offsetY = drops[1].length;
-      }
-      break;
-    case 'drop3':
-      if (!dropsLock[2]) {
-        drops[2].push(deck2pokersolver(card));
-        dropsLock[2] = true;
-        regular = true;
-        offsetY = drops[2].length;
-      }
-      break;
-    case 'drop4':
-      if (!dropsLock[3]) {
-        drops[3].push(deck2pokersolver(card));
-        dropsLock[3] = true;
-        regular = true;
-        offsetY = drops[3].length;
-      }
-      break;
-    default:
-      break;
+  index = parseInt(event.currentTarget.getAttribute('data-pile'));
+  if (!dropsLock[index - 1]) {
+    drops[index - 1].push(deck2pokersolver(card));
+    dropsLock[index - 1] = true;
+    regular = true;
+    offsetY = drops[index - 1].length;
   }
 
-  /* card.disableDragging(); */
   if (regular) {
     offsetY = (offsetY - 1) * 30;
     card.animateTo({
@@ -312,15 +286,13 @@ function changeCard(event) {
       ease: 'quartOut',
       x: event.currentTarget.getBoundingClientRect().x - card.$el.getBoundingClientRect().x + 7.25 + card.x,
       y: event.currentTarget.getBoundingClientRect().y - card.$el.getBoundingClientRect().y + offsetY,
-      onComplete: function () {
-        //c3.setSide('front');
-      }
+      onComplete: function () {}
     });
     card.$el.style.zIndex = 40;
     if (rowComplete()) {
       dropsLock = [false, false, false, false];
     }
-    card = getCard($card, deck);
+    card = pickCard($card, deck);
   } else {
     card.animateTo({
       delay: 0,
@@ -329,7 +301,6 @@ function changeCard(event) {
       x: 0,
       y: 0
     });
-    /* card.enableDragging(); */
   }
 
 }
@@ -372,7 +343,7 @@ function start() {
 
   setTimeout(function () {
     // Select the first card
-    card = getCard($card, deck);
+    card = pickCard($card, deck);
   }, 1400);
 }
 
@@ -401,16 +372,8 @@ var sum, score;
 var instantWin = false;
 
 window.onload = function () {
-  $card = document.getElementById('deck');
-  $deck = document.getElementById('deck');
-  $drop1 = document.getElementById('drop1');
-  $drop2 = document.getElementById('drop2');
-  $drop3 = document.getElementById('drop3');
-  $drop4 = document.getElementById('drop4');
-  $new = document.getElementById('start');
-  $next = document.getElementById('next');
-  $scores = document.getElementById('scores');
-  $sum = document.getElementById('sum');
+  $new = document.getElementById('singleStart');
+  $next = document.getElementById('singleNext');
 
   addHandlers();
 };

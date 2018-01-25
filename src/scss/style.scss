@@ -33,20 +33,19 @@
     /* Custom styles */
 
     .columns {
-      &.deck,
+      &.cardsdeck {
+        height: 35%;
+        .deck {
+          padding-top: 2%;
+        }
+      }
       &.dropzone {
         height: 35%;
+        min-height: 200px;
         .drop {
           z-index: 100;
         }
       }
-      &.dropzone {
-        min-height: 200px;
-      }
-    }
-
-    #deck {
-      padding-top: 4%;
     }
 
     .scoreboard {
@@ -96,4 +95,16 @@
         padding-top: .2rem;
         font-size: 150%;
       }
+    }
+
+    .blocker {
+      position: absolute;
+      /* TODO: set in js files
+      top: 0;
+      left: 0;
+      width: 200px;
+      height: 200px; */
+      z-index: 200;
+      opacity: 0.4;
+      filter: alpha(opacity=50)
     }

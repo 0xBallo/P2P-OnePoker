@@ -25,16 +25,16 @@
   border-bottom: 1px solid; }
 
 /* Custom styles */
-.columns.deck, .columns.dropzone {
+.columns.cardsdeck {
   height: 35%; }
-  .columns.deck .drop, .columns.dropzone .drop {
-    z-index: 100; }
+  .columns.cardsdeck .deck {
+    padding-top: 2%; }
 
 .columns.dropzone {
+  height: 35%;
   min-height: 200px; }
-
-#deck {
-  padding-top: 4%; }
+  .columns.dropzone .drop {
+    z-index: 100; }
 
 .scoreboard {
   background-image: url("../assets/images/scoreboard-bg.png");
@@ -75,3 +75,14 @@
     padding-left: 6rem;
     padding-top: .2rem;
     font-size: 150%; }
+
+.blocker {
+  position: absolute;
+  /* TODO: set in js files
+      top: 0;
+      left: 0;
+      width: 200px;
+      height: 200px; */
+  z-index: 200;
+  opacity: 0.4;
+  filter: alpha(opacity=50); }
