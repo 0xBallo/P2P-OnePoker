@@ -35,6 +35,8 @@
   min-height: 200px; }
   .columns.dropzone .drop {
     z-index: 100; }
+  .columns.dropzone .tile {
+    margin-top: 1rem; }
 
 .scoreboard {
   background-image: url("../assets/images/scoreboard-bg.png");

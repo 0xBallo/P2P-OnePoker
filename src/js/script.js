@@ -60,6 +60,11 @@ function getActiveUIElements() {
   $drop4 = document.querySelector('.active .drop[data-pile="4"]');
 }
 
+// Close Modal
+function closeModal(id) {
+  document.getElementById(id).classList.toggle('active');
+}
+
 
 /*
   ================================== Game Funcs =============================================
@@ -88,8 +93,7 @@ function pickCard($container, d) {
     $sum.innerHTML = sum;
     //check win
     if (sum >= 502) {
-      //TODO: change alert to other!(Maybe animation!)
-      alert('You won OnePoker!!');
+      document.getElementById('modal-won').classList.toggle('active');
     } else {
       $next.removeAttribute('disabled');
     }
