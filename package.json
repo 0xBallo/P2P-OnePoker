@@ -6,7 +6,8 @@
   "license": "GPL-3.0",
   "private": true,
   "scripts": {
-    "start": "./node_modules/.bin/gulp"
+    "start": "./node_modules/.bin/gulp",
+    "server": "node src/server/server.js"
   },
   "dependencies": {
     "deck-of-cards": "^0.1.8",
