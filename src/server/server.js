@@ -63,7 +63,7 @@ wss.on('connection', function (connection) {
 					});
 				}
 			break;
-			/*case "candidate":
+			case "candidate":
 				console.log("Sending candidate to", data.name);
 				var conn = users[data.name];
 				if(conn != null){
@@ -72,7 +72,7 @@ wss.on('connection', function (connection) {
 						candidate: data.candidate
 					});
 				}
-			break;*/
+			break;
 			case "cardPicked":
 				console.log("a card was taken from", connection.name);
 				for (i = 0; i < data.name.length; i ++){
@@ -82,7 +82,8 @@ wss.on('connection', function (connection) {
 						sendTo(conn, {
 							type: "cardPicked",
 							cardPicked: data.cardPicked,
-							name: connection.name
+							name: connection.name,
+							otherName: data.otherName
 						});
 					}
 				}
@@ -95,9 +96,10 @@ wss.on('connection', function (connection) {
 						connection.otherName = data.name;
 						sendTo(conn, {
 							type: "cardDrop",
-							card: data.card,
+							card: data.cardPicked,
 							position: data.position,
-							name: connection.name
+							name: connection.name,
+							otherName: data.otherName
 						});
 					}
 				}
@@ -112,7 +114,8 @@ wss.on('connection', function (connection) {
 							type: "endTurn",
 							score: data.score,
 							isFinished: data.isFinished,
-							name: connection.name
+							name: connection.name,
+							otherName: data.otherName
 						});
 					}
 				}
