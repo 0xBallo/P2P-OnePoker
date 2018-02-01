@@ -68,8 +68,16 @@ function onDropCard(pile, cardData) {
 }
 
 //End player turn
-function onEndTurn() {
-  //TODO: implement method
+function onEndTurn(player, score, next) {
+  for (let i = 0; i < players.length; i++) {
+    const p = players[i];
+    if (p.name === player) {
+      players[i].score += score;
+      players[i].played = true;
+    }
+  }
+  updatePlayerList();
+  //TODO: check if next is me and if yes prepare start turn
 }
 
 // End game with winner
@@ -78,8 +86,16 @@ function onEndGame() {
 }
 
 // new peer connect to network
-function onNewPeer() {
-  //TODO: implement method
+function onNewPeer(id) {
+  var valid = true;
+  players.forEach(p => {
+    if (p.name === id) {
+      valid = false;
+    }
+  });
+  if (valid) {
+    startPeerConnection(id);
+  }
 }
 
 //Error handlers with server
@@ -131,13 +147,13 @@ function onPeerConnection(conn) {
         onDropCard(data.pile, data.card);
         break;
       case 'endTurn':
-        //TODO: implement method
+        onEndTurn(data.player, data.score, data.next);
         break;
       case 'endGame':
         //TODO: implement method
         break;
       case 'newPeer':
-        //TODO: implement method
+        onNewPeer(data.id);
         break;
 
       default:
@@ -146,11 +162,17 @@ function onPeerConnection(conn) {
     }
   });
 
+  broadcastData({
+    type: 'newPeer',
+    id: conn.peer
+  });
+
   peersConnections.push(conn);
   players.push({
     name: conn.peer,
     score: 0,
-    active: false
+    active: false,
+    played: false
   });
 
   updatePlayerList();
@@ -161,52 +183,52 @@ function onPeerConnection(conn) {
 
 //create a peer connection
 function startPeerConnection(id) {
-  var conn = peer.connect(id);
+  onPeerConnection(peer.connect(id));
+  /* 
+    conn.on('open', function () {
+      console.info('Connection established with ' + conn.peer);
+    });
 
-  conn.on('open', function () {
-    console.info('Connection established with ' + conn.peer);
-  });
+    conn.on('error', function (err) {
+      console.error(err);
+    })
 
-  conn.on('error', function (err) {
-    console.error(err);
-  })
+    conn.on('data', function (data) {
 
-  conn.on('data', function (data) {
+      switch (data.type) {
+        case 'startGame':
+          onStartGame(data.player);
+          break;
+        case 'dropCard':
+          onDropCard(data.pile, data.card);
+          break;
+        case 'endTurn':
+          //TODO: implement method
+          break;
+        case 'endGame':
+          //TODO: implement method
+          break;
+        case 'newPeer':
+          //TODO: implement method
+          break;
 
-    switch (data.type) {
-      case 'startGame':
-        onStartGame(data.player);
-        break;
-      case 'dropCard':
-        onDropCard(data.pile, data.card);
-        break;
-      case 'endTurn':
-        //TODO: implement method
-        break;
-      case 'endGame':
-        //TODO: implement method
-        break;
-      case 'newPeer':
-        //TODO: implement method
-        break;
+        default:
+          console.warn('Unrecognized message type!', data);
+          break;
+      }
+    });
 
-      default:
-        console.warn('Unrecognized message type!', data);
-        break;
-    }
-  });
+    peersConnections.push(conn);
+    players.push({
+      name: conn.peer,
+      score: 0,
+      active: false
+    });
 
-  peersConnections.push(conn);
-  players.push({
-    name: conn.peer,
-    score: 0,
-    active: false
-  });
+    updatePlayerList();
 
-  updatePlayerList();
-
-  $startMulti.removeAttribute('disabled');
-  $joinMulti.setAttribute('disabled', 'true');
+    $startMulti.removeAttribute('disabled');
+    $joinMulti.setAttribute('disabled', 'true'); */
 }
 
 
@@ -227,6 +249,8 @@ function updatePlayerList() {
     playerTemplate.content.querySelector(".tile-subtitle b").innerHTML = p.score;
     if (p.active) {
       playerTemplate.content.querySelector(".avatar .avatar-presence").classList.add('online');
+    } else {
+      playerTemplate.content.querySelector(".avatar .avatar-presence").classList.remove('online');
     }
     var clone = document.importNode(playerTemplate.content, true);
     $players.appendChild(clone);
