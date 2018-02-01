@@ -12,7 +12,9 @@ gulp.task('sass', function () {
 
 // Move Js files to /src/js folder
 gulp.task('js', function () {
-  return gulp.src(['node_modules/deck-of-cards/dist/deck.min.js', 'node_modules/pokersolver/pokersolver.js'])
+  return gulp.src([
+    'node_modules/deck-of-cards/dist/deck.min.js', 'node_modules/pokersolver/pokersolver.js', 
+    'node_modules/peerjs/dist/peer.min.js'])
     .pipe(gulp.dest('src/js'))
     .pipe(browserSync.stream());
 });

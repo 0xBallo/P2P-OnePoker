@@ -2,26 +2,14 @@
   ================================== Multiplayer Funcs =======================================
  */
 
-
 //dichiarazione delle variabili
 var connection;
 //elementi html
-var joinGameSection = document.querySelector("#joinGameSection"), //joinGame
-  theirUsernameInput = document.querySelector('#theirusername'),
-  joinGameButton = document.querySelector("#joinGameButton"),
-  cardPickedSection = document.querySelector("#cardPickedSection"), //cardPicked
-  cardPickedInput = document.querySelector("#cardPickedInput"),
-  carPickedButton = document.querySelector("#cardPickedButton"),
-  cardDropSection = document.querySelector("#cardDropSection"), //cardDrop
-  cardDropInput = document.querySelector("#cardDropInput"),
-  cardDropButton = document.querySelector("#cardDropButton"),
-  endTurnSection = document.querySelector("#endTurnSection"), //endTurn
-  endTurnButton = document.querySelector("#endTurnButton"),
-  myConnection, connectedPlayer, cardPicked, position;
+var myConnection, connectedPlayer, cardPicked, position;
 
 var playersConnected = [];
-var score = 10;
-var isFinished = true;
+/* var score = 10;
+var isFinished = true; */
 
 //---------------------------- P2P utils -----------------------------------------
 
@@ -84,12 +72,7 @@ function cardPickedFunction(cardPicked, user) {
   });
 }
 
-function onRoomPlayers(players) {
-  //DEBUG: update player's list
-  players.forEach(p => {
-    console.log(p);
-  });
-};
+
 //send player's list to new player
 function sendPlayersList() {
   myConnection.createOffer(function (name) {

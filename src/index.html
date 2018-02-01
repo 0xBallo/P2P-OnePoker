@@ -267,6 +267,7 @@
         <div class="column col-6 col-mr-auto">
           <button id="multiStart" class="btn btn-primary" disabled>Start Game</button>
           <button id="multiJoin" class="btn btn-primary">Join Game</button>
+          <button id="multiJoin" class="btn" disabled>Start Turn</button>
         </div>
       </div>
       <div class="columns cardsdeck">
@@ -288,23 +289,6 @@
       <div class="columns dropzone">
         <div id="players" class="column col-4">
           <h3>Players</h3>
-          <!-- nicknames of other players -->
-          <template id="player-template">
-            <div class="tile tile-centered">
-              <div class="tile-icon">
-                <figure class="avatar avatar-lg">
-                  <img src="assets/images/avatar-2.png" alt="YZ">
-                  <i class="avatar-presence"></i>
-                </figure>
-              </div>
-              <div class="tile-content">
-                <div class="tile-title">Player</div>
-                <div class="tile-subtitle text-gray">Points:
-                  <b>0</b>
-                </div>
-              </div>
-            </div>
-          </template>
         </div>
         <div data-pile="1" class="column col-1 col-mx-auto drop"></div>
         <div data-pile="2" class="column col-1 col-mx-auto drop"></div>
@@ -316,9 +300,28 @@
     </div>
   </div>
 
+  <!-- nicknames of other players -->
+  <template id="player-template">
+    <div class="tile tile-centered">
+      <div class="tile-icon">
+        <figure class="avatar avatar-lg">
+          <img src="assets/images/avatar-2.png" alt="YZ">
+          <i class="avatar-presence"></i>
+        </figure>
+      </div>
+      <div class="tile-content">
+        <div class="tile-title">Player</div>
+        <div class="tile-subtitle text-gray">Points:
+          <b>0</b>
+        </div>
+      </div>
+    </div>
+  </template>
+
   <script src="js/deck.min.js"></script>
   <script src="js/pokersolver.js"></script>
-  <script src="js/client.js"></script>
+  <script src="js/peer.min.js"></script>
+  <script src="js/client.2.js"></script>
   <script src="js/script.js"></script>
 </body>
 

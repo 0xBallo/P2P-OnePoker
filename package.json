@@ -7,17 +7,19 @@
   "private": true,
   "scripts": {
     "start": "./node_modules/.bin/gulp",
-    "server": "node src/server/server.js"
+    "server": "./node_modules/.bin/peerjs --port 8888 --key onepoker"
   },
   "dependencies": {
     "deck-of-cards": "^0.1.8",
     "material-colors": "^1.2.5",
+    "peerjs": "^0.3.14",
     "pokersolver": "^2.1.2",
     "spectre.css": "^0.5.0"
   },
   "devDependencies": {
     "browser-sync": "^2.23.6",
     "gulp": "^3.9.1",
-    "gulp-sass": "^3.1.0"
+    "gulp-sass": "^3.1.0",
+    "peer": "^0.2.8"
   }
 }

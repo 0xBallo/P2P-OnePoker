@@ -55,28 +55,69 @@ function closeModal(id) {
   document.getElementById(id).classList.toggle('active');
 }
 
+//get XY position for card
+function getPosition($elem, c, offsetY) {
+  var res = {
+    x: 0,
+    y: 0
+  };
+
+  res.x = $elem.getBoundingClientRect().x - c.$el.getBoundingClientRect().x + 7.25 + c.x;
+  res.y = $elem.getBoundingClientRect().y - c.$el.getBoundingClientRect().y + offsetY;
+
+  return res;
+}
 
 /*
   ================================== Game Funcs =============================================
 */
 
+//Prepare deck and table
+function prepareDeck() {
+  drops = [
+    [],
+    [],
+    [],
+    []
+  ];
+  dropsLock = [false, false, false, false];
+  dropsCounter = 0;
+
+  $deck.innerHTML = '';
+  $card.innerHTML = '';
+  $drop1.innerHTML = '';
+  $drop2.innerHTML = '';
+  $drop3.innerHTML = '';
+  $drop4.innerHTML = '';
+
+  deck = Deck();
+
+  // Remove unused cards 
+  removedCards = deck.cards.splice(40, 4);
+  removedCards.concat(deck.cards.splice(27, 4));
+  removedCards.concat(deck.cards.splice(14, 4));
+  removedCards.concat(deck.cards.splice(1, 4));
+  removedCards.forEach(function (removedCard) {
+    removedCard.unmount();
+  });
+
+  deck.mount($deck);
+  deck.shuffle();
+}
+
 // Save nickname insert by user
 function chooseUsername(event) {
   user.name = document.getElementById('inputUsername').value;
   if (user.name.length > 0) {
-    send({
-      type: 'login',
-      name: user.name
-    });
+    initConnection(user.name);
   }
 }
 
 // Join Multiplayer Game
 function joinMultiplayerGame(event) {
-  var theirUsernameValue = prompt('Insert name of user to join:');;
-  if (theirUsernameValue.length > 0) {
-    playersConnected.push(theirUsernameValue);
-    startPeerConnection(playersConnected);
+  var playerName = prompt('Insert name of user to join:');;
+  if (playerName.length > 0) {
+    startPeerConnection(playerName);
   }
 }
 
@@ -158,7 +199,6 @@ function deck2pokersolver(c) {
 //Calculate score using pokersolver
 function calcScore() {
   let s = 0;
-  theirUsername
   for (let i = 0; i < drops.length; i++) {
     const ps_array = drops[i];
     var hand = Hand.solve(ps_array);
@@ -213,76 +253,108 @@ function rowComplete() {
 
 //Place first 4 cards in dropzones
 function first4Cards(d) {
-  var c1, c2, c3, c4;
+  var c1, c2, c3, c4, pos;
   //Dropzone 1
   c1 = d.cards.pop();
+  pos = getPosition($drop1, c1, 0);
   c1.animateTo({
     delay: 0,
     duration: 500,
     ease: 'quartOut',
-    x: $drop1.getBoundingClientRect().x - c1.$el.getBoundingClientRect().x,
-    y: $drop1.getBoundingClientRect().y - c1.$el.getBoundingClientRect().y,
+    x: pos.x,
+    y: pos.y,
     onComplete: function () {
       c1.setSide('front');
     }
   });
   // card send for multiplayer game
   if (multi) {
-    cardDropFunction(1, c1, playersConnected[0]);
+    broadcastData({
+      type: 'dropCard',
+      pile: 1,
+      card: {
+        rank: c1.rank,
+        suit: c1.suit
+      }
+    });
   }
   r1 = c1.rank;
   drops[0].push(deck2pokersolver(c1));
   //Dropzone 2
   c2 = d.cards.pop();
+  pos = getPosition($drop2, c2, 0);
   c2.animateTo({
     delay: 500,
     duration: 500,
     ease: 'quartOut',
-    x: $drop2.getBoundingClientRect().x - c2.$el.getBoundingClientRect().x,
-    y: $drop2.getBoundingClientRect().y - c2.$el.getBoundingClientRect().y,
+    x: pos.x,
+    y: pos.y,
     onComplete: function () {
       c2.setSide('front');
     }
   });
   // card send for multiplayer game
   if (multi) {
-    cardDropFunction(2, c2, playersConnected[0]);
+    broadcastData({
+      type: 'dropCard',
+      pile: 2,
+      card: {
+        rank: c2.rank,
+        suit: c2.suit
+      }
+    });
   }
   r2 = c2.rank;
   drops[1].push(deck2pokersolver(c2));
   //Dropzone 3
   c3 = d.cards.pop();
+  pos = getPosition($drop3, c3, 0);
   c3.animateTo({
     delay: 1000,
     duration: 500,
     ease: 'quartOut',
-    x: $drop3.getBoundingClientRect().x - c3.$el.getBoundingClientRect().x,
-    y: $drop3.getBoundingClientRect().y - c3.$el.getBoundingClientRect().y,
+    x: pos.x,
+    y: pos.y,
     onComplete: function () {
       c3.setSide('front');
     }
   });
   // card send for multiplayer game
   if (multi) {
-    cardDropFunction(3, c3, playersConnected[0]);
+    broadcastData({
+      type: 'dropCard',
+      pile: 3,
+      card: {
+        rank: c3.rank,
+        suit: c3.suit
+      }
+    });
   }
   r3 = c3.rank;
   drops[2].push(deck2pokersolver(c3));
   //Dropzone 4
   c4 = d.cards.pop();
+  pos = getPosition($drop4, c4, 0);
   c4.animateTo({
     delay: 1500,
     duration: 500,
     ease: 'quartOut',
-    x: $drop4.getBoundingClientRect().x - c4.$el.getBoundingClientRect().x,
-    y: $drop4.getBoundingClientRect().y - c4.$el.getBoundingClientRect().y,
+    x: pos.x,
+    y: pos.y,
     onComplete: function () {
       c4.setSide('front');
     }
   });
   // card send for multiplayer game
   if (multi) {
-    cardDropFunction(4, c4, playersConnected[0]);
+    broadcastData({
+      type: 'dropCard',
+      pile: 4,
+      card: {
+        rank: c4.rank,
+        suit: c4.suit
+      }
+    });
   }
   r4 = c4.rank;
   drops[3].push(deck2pokersolver(c4));
@@ -295,7 +367,7 @@ function first4Cards(d) {
 
 //place card on dropzone and get new one
 function dropCard(event) {
-  var index, regular, offsetY;
+  var index, regular, offsetY, pos;
 
   // prevent default action (open as link for some elements) 
   event.preventDefault();
@@ -312,17 +384,29 @@ function dropCard(event) {
 
   if (regular) {
     offsetY = (offsetY - 1) * 30;
+    pos = getPosition(event.currentTarget, card, offsetY);
     card.animateTo({
       delay: 0,
       duration: 500,
       ease: 'quartOut',
-      x: event.currentTarget.getBoundingClientRect().x - card.$el.getBoundingClientRect().x + 7.25 + card.x,
-      y: event.currentTarget.getBoundingClientRect().y - card.$el.getBoundingClientRect().y + offsetY,
+      x: pos.x,
+      y: pos.y,
       onComplete: function () {}
     });
     card.$el.style.zIndex = 40;
     if (rowComplete()) {
       dropsLock = [false, false, false, false];
+    }
+    //send broadcast to multiplayer
+    if (multi) {
+      broadcastData({
+        type: 'dropCard',
+        pile: index,
+        card: {
+          rank: card.rank,
+          suit: card.suit
+        }
+      });
     }
     card = pickCard($card, deck);
   } else {
@@ -334,40 +418,13 @@ function dropCard(event) {
       y: 0
     });
   }
-
 }
 
 //Start match
 function start() {
-  drops = [
-    [],
-    [],
-    [],
-    []
-  ];
-  dropsLock = [false, false, false, false];
   score = 0;
 
-  $deck.innerHTML = '';
-  $card.innerHTML = '';
-  $drop1.innerHTML = '';
-  $drop2.innerHTML = '';
-  $drop3.innerHTML = '';
-  $drop4.innerHTML = '';
-
-  deck = Deck();
-
-  // Remove unused cards 
-  removedCards = deck.cards.splice(40, 4);
-  removedCards.concat(deck.cards.splice(27, 4));
-  removedCards.concat(deck.cards.splice(14, 4));
-  removedCards.concat(deck.cards.splice(1, 4));
-  removedCards.forEach(function (removedCard) {
-    removedCard.unmount();
-  });
-
-  deck.mount($deck);
-  deck.shuffle();
+  prepareDeck();
 
   setTimeout(function (m) {
     first4Cards(deck);
@@ -393,7 +450,12 @@ function newMultiGame() {
   $scores.innerHTML = '';
   $sum.innerHTML = '0';
   sum = 0;
+  $startMulti.setAttribute('disabled', 'true');
   multi = true;
+  broadcastData({
+    type: 'startGame',
+    player: user.name
+  });
   start();
 }
 
@@ -407,7 +469,7 @@ function next() {
   ======================== Main Program =================================
 */
 
-var $card, $deck, $drop1, $drop2, $drop3, $drop4, $new, $next, $scores, $sum, $players, $joinMulti, $startMulti;
+var $card, $deck, $drop1, $drop2, $drop3, $drop4, $new, $next, $scores, $sum, $players, $joinMulti, $startMulti, $blocker;
 var user = {
   name: ''
 };
@@ -422,7 +484,7 @@ window.onload = function () {
   $players = document.getElementById('players');
   $joinMulti = document.getElementById('multiJoin');
   $startMulti = document.getElementById('multiStart');
+  $blocker = document.querySelector('.blocker');
 
-  initConnection();
   addHandlers();
 };
