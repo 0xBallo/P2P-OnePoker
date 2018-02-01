@@ -142,11 +142,35 @@ function pickCard($container, d) {
     $li.innerHTML = score;
     $scores.appendChild($li);
     $sum.innerHTML = sum;
+    //chek multiplayer
+    if (multi) {
+      var nextPlayer = '', nextRound = false;
+      for (let i = 0; i < players.length; i++) {
+        const p = players[i];
+        if (!p.played) {
+          nextPlayer = p.name;
+          break;
+        }
+      }
+      if (nextPlayer === '') {
+        nextRound = true;
+        nextPlayer = players[0].name;
+        for (let i = 0; i < players.length; i++) {
+          players[i].played = false; 
+        }
+      }
+      broadcastData({
+        type: 'endTurn',
+        player: user.name,
+        score: score,
+        next: nextPlayer,
+        nextRound: nextRound
+      });
+    }
     //check win
     if (sum >= 502) {
       document.getElementById('modal-won').classList.toggle('active');
     } else {
-      theirUsername
       $next.removeAttribute('disabled');
     }
   } else {
@@ -469,7 +493,7 @@ function next() {
   ======================== Main Program =================================
 */
 
-var $card, $deck, $drop1, $drop2, $drop3, $drop4, $new, $next, $scores, $sum, $players, $joinMulti, $startMulti, $blocker;
+var $card, $deck, $drop1, $drop2, $drop3, $drop4, $new, $next, $scores, $sum, $players, $joinMulti, $startMulti, $turnMulti, $blocker;
 var user = {
   name: ''
 };
@@ -484,6 +508,7 @@ window.onload = function () {
   $players = document.getElementById('players');
   $joinMulti = document.getElementById('multiJoin');
   $startMulti = document.getElementById('multiStart');
+  $turnMulti = document.getElementById('multiTurn');
   $blocker = document.querySelector('.blocker');
 
   addHandlers();

@@ -68,16 +68,25 @@ function onDropCard(pile, cardData) {
 }
 
 //End player turn
-function onEndTurn(player, score, next) {
+function onEndTurn(player, score, next, nextRound) {
   for (let i = 0; i < players.length; i++) {
     const p = players[i];
+    if (nextRound) {
+      players[i].played = false;
+    }
     if (p.name === player) {
       players[i].score += score;
-      players[i].played = true;
+      players[i].played = !players[i].played;
+      players[i].active = false;
     }
   }
   updatePlayerList();
   //TODO: check if next is me and if yes prepare start turn
+  if (next === user.name) {
+    $turnMulti.removeAttribute('disabled');
+  } else {
+    $turnMulti.setAttribute('disabled', 'true');
+  }
 }
 
 // End game with winner
@@ -147,7 +156,7 @@ function onPeerConnection(conn) {
         onDropCard(data.pile, data.card);
         break;
       case 'endTurn':
-        onEndTurn(data.player, data.score, data.next);
+        onEndTurn(data.player, data.score, data.next, data.nextRound);
         break;
       case 'endGame':
         //TODO: implement method
