@@ -14,6 +14,24 @@ All Library are already included in project:
 
 - [Spectre.css](https://picturepan2.github.io/spectre/index.html): Lightweight, responsive and modern CSS framework.
 
+- [PEERJS](http://peerjs.com/): PeerJS simplifies WebRTC peer-to-peer data, video, and audio calls.
+
+## Installation for Development
+
+### Run PeerServer
+
+Install the library:
+
+```bash
+$> npm i peer -g
+```
+
+Run the server before lunching the page:
+
+```bash
+$> peerjs --port 8888 --key onepoker
+```
+
 ## Project Structure
 
 ### src/css
@@ -48,7 +66,3 @@ Reach **502** points for first. In case, two or more player reach 502 in the sam
 - **Three of a Kind**: 10
 - **Two Pairs**: 3
 - **One Pair**: 1
-
-## TODO
-
-Usare risposta dopo il join di un giocatore per far sapere agli altri che si è unito alla partita
