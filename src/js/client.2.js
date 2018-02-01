@@ -69,6 +69,7 @@ function onDropCard(pile, cardData) {
 
 //End player turn
 function onEndTurn(player, score, next, nextRound) {
+  //FIXME: bug in scelta del next quando tutti hanno giocato
   for (let i = 0; i < players.length; i++) {
     const p = players[i];
     if (nextRound) {

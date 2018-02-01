@@ -36,6 +36,7 @@ function addHandlers() {
   $next.addEventListener("click", next, false);
   $joinMulti.addEventListener("click", joinMultiplayerGame, false);
   $startMulti.addEventListener("click", newMultiGame, false);
+  $turnMulti.addEventListener("click", nextTurnMultiGame, false);
 }
 
 // Get active ui elements reference
@@ -144,7 +145,8 @@ function pickCard($container, d) {
     $sum.innerHTML = sum;
     //chek multiplayer
     if (multi) {
-      var nextPlayer = '', nextRound = false;
+      var nextPlayer = '',
+        nextRound = false;
       for (let i = 0; i < players.length; i++) {
         const p = players[i];
         if (!p.played) {
@@ -156,7 +158,7 @@ function pickCard($container, d) {
         nextRound = true;
         nextPlayer = players[0].name;
         for (let i = 0; i < players.length; i++) {
-          players[i].played = false; 
+          players[i].played = false;
         }
       }
       broadcastData({
@@ -475,6 +477,23 @@ function newMultiGame() {
   $sum.innerHTML = '0';
   sum = 0;
   $startMulti.setAttribute('disabled', 'true');
+  multi = true;
+  broadcastData({
+    type: 'startGame',
+    player: user.name
+  });
+  start();
+}
+
+//Start next turn multiplayer
+function nextTurnMultiGame() {
+  $turnMulti.setAttribute('disabled', 'true');
+  if (isNaN(sum)) {
+    sum = 0;
+  }
+  var $dropzone = document.querySelector('.blocker');
+  $dropzone.style.height = 0;
+  $dropzone.style.width = 0;
   multi = true;
   broadcastData({
     type: 'startGame',
