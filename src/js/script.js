@@ -25,18 +25,6 @@ function changePage(event) {
   }
 }
 
-// Save nickname insert by user
-function chooseUsername(event) {
-  var name = document.getElementById('inputUsername').value;
-  document.querySelector('.navbar .username').innerHTML = name;
-  document.querySelector('.toast-success').classList.toggle('d-none');
-  setTimeout(() => {
-    document.querySelector('.toast-success').classList.add('d-none');
-  }, 3000);
-  document.querySelectorAll('.page-links a')
-    .forEach((el) => el.removeAttribute('disabled'));
-}
-
 // Add event handler for theme to the components
 function addHandlers() {
   document.querySelectorAll('.page-links .btn')
@@ -46,6 +34,8 @@ function addHandlers() {
 
   $new.addEventListener("click", newGame, false);
   $next.addEventListener("click", next, false);
+  $joinMulti.addEventListener("click", joinMultiplayerGame, false);
+  $startMulti.addEventListener("click", newMultiGame, false);
 }
 
 // Get active ui elements reference
@@ -69,6 +59,26 @@ function closeModal(id) {
 /*
   ================================== Game Funcs =============================================
 */
+
+// Save nickname insert by user
+function chooseUsername(event) {
+  user.name = document.getElementById('inputUsername').value;
+  if (user.name.length > 0) {
+    send({
+      type: 'login',
+      name: user.name
+    });
+  }
+}
+
+// Join Multiplayer Game
+function joinMultiplayerGame(event) {
+  var theirUsernameValue = prompt('Insert name of user to join:');;
+  if (theirUsernameValue.length > 0) {
+    playersConnected.push(theirUsernameValue);
+    startPeerConnection(playersConnected);
+  }
+}
 
 //pick card from deck
 function pickCard($container, d) {
@@ -95,6 +105,7 @@ function pickCard($container, d) {
     if (sum >= 502) {
       document.getElementById('modal-won').classList.toggle('active');
     } else {
+      theirUsername
       $next.removeAttribute('disabled');
     }
   } else {
@@ -147,6 +158,7 @@ function deck2pokersolver(c) {
 //Calculate score using pokersolver
 function calcScore() {
   let s = 0;
+  theirUsername
   for (let i = 0; i < drops.length; i++) {
     const ps_array = drops[i];
     var hand = Hand.solve(ps_array);
@@ -214,6 +226,10 @@ function first4Cards(d) {
       c1.setSide('front');
     }
   });
+  // card send for multiplayer game
+  if (multi) {
+    cardDropFunction(1, c1, playersConnected[0]);
+  }
   r1 = c1.rank;
   drops[0].push(deck2pokersolver(c1));
   //Dropzone 2
@@ -228,6 +244,10 @@ function first4Cards(d) {
       c2.setSide('front');
     }
   });
+  // card send for multiplayer game
+  if (multi) {
+    cardDropFunction(2, c2, playersConnected[0]);
+  }
   r2 = c2.rank;
   drops[1].push(deck2pokersolver(c2));
   //Dropzone 3
@@ -242,6 +262,10 @@ function first4Cards(d) {
       c3.setSide('front');
     }
   });
+  // card send for multiplayer game
+  if (multi) {
+    cardDropFunction(3, c3, playersConnected[0]);
+  }
   r3 = c3.rank;
   drops[2].push(deck2pokersolver(c3));
   //Dropzone 4
@@ -256,6 +280,10 @@ function first4Cards(d) {
       c4.setSide('front');
     }
   });
+  // card send for multiplayer game
+  if (multi) {
+    cardDropFunction(4, c4, playersConnected[0]);
+  }
   r4 = c4.rank;
   drops[3].push(deck2pokersolver(c4));
   //check instant win
@@ -341,11 +369,11 @@ function start() {
   deck.mount($deck);
   deck.shuffle();
 
-  setTimeout(function () {
+  setTimeout(function (m) {
     first4Cards(deck);
   }, 1000);
 
-  setTimeout(function () {
+  setTimeout(function (m) {
     // Select the first card
     card = pickCard($card, deck);
   }, 1400);
@@ -356,6 +384,16 @@ function newGame() {
   $scores.innerHTML = '';
   $sum.innerHTML = '0';
   sum = 0;
+  multi = false;
+  start();
+}
+
+//Start new multiplayer game
+function newMultiGame() {
+  $scores.innerHTML = '';
+  $sum.innerHTML = '0';
+  sum = 0;
+  multi = true;
   start();
 }
 
@@ -369,15 +407,22 @@ function next() {
   ======================== Main Program =================================
 */
 
-var $card, $deck, $drop1, $drop2, $drop3, $drop4, $new, $next, $scores, $sum;
+var $card, $deck, $drop1, $drop2, $drop3, $drop4, $new, $next, $scores, $sum, $players, $joinMulti, $startMulti;
+var user = {
+  name: ''
+};
 var drops, dropsLock;
 var card, deck, removedCards;
-var sum, score;
+var sum, score, multi;
 var instantWin = false;
 
 window.onload = function () {
   $new = document.getElementById('singleStart');
   $next = document.getElementById('singleNext');
+  $players = document.getElementById('players');
+  $joinMulti = document.getElementById('multiJoin');
+  $startMulti = document.getElementById('multiStart');
 
+  initConnection();
   addHandlers();
 };

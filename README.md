@@ -48,3 +48,7 @@ Reach **502** points for first. In case, two or more player reach 502 in the sam
 - **Three of a Kind**: 10
 - **Two Pairs**: 3
 - **One Pair**: 1
+
+## TODO
+
+Usare risposta dopo il join di un giocatore per far sapere agli altri che si è unito alla partita

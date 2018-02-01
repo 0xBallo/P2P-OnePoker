@@ -121,10 +121,12 @@ function onCandidate(candidate) {
 //onCardPicked
 function onCardPicked(card, user) {
   //Do something...
+  console.log(card);
 }
 //onCardDrop
 function onCardDrop(card, position, user) {
   //Do something...
+  console.log(card, position);
 }
 //onEndTurn
 function onEndTurn(score, isFinished, user, otherUser) {
@@ -133,7 +135,6 @@ function onEndTurn(score, isFinished, user, otherUser) {
   theirUsername = otherUser;
   theirUsername.push(user);
   theirUsername.shift();
-
 }
 //onLeave
 function onLeave() {
