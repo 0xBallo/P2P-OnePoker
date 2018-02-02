@@ -24,6 +24,17 @@
       }
     }
 
+    .modal {
+      ol {
+        li {
+          &:first-child {
+            font-size: 125%;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+
     .divider-vert {
       &::before {
         border-left: 0;

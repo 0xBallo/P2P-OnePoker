@@ -20,6 +20,10 @@
     font-size: 110%;
     font-weight: 500; }
 
+.modal ol li:first-child {
+  font-size: 125%;
+  font-weight: 500; }
+
 .divider-vert::before {
   border-left: 0;
   border-bottom: 1px solid; }

@@ -145,32 +145,18 @@ function pickCard($container, d) {
     $sum.innerHTML = sum;
     //chek multiplayer
     if (multi) {
-      var nextPlayer = '',
-        nextRound = false;
-      for (let i = 0; i < players.length; i++) {
-        const p = players[i];
-        if (!p.played) {
-          nextPlayer = p.name;
-          break;
-        }
-      }
-      if (nextPlayer === '') {
-        nextRound = true;
-        nextPlayer = players[0].name;
-        for (let i = 0; i < players.length; i++) {
-          players[i].played = false;
-        }
-      }
+      let p = players.shift();
+      p.active = false;
+      p.score += score;
+      players[0].active = true;
+      players.push(p);
       broadcastData({
         type: 'endTurn',
-        player: user.name,
-        score: score,
-        next: nextPlayer,
-        nextRound: nextRound
+        players: players
       });
     }
     //check win
-    if (sum >= 502) {
+    if (sum >= GOAL_SCORE) {
       document.getElementById('modal-won').classList.toggle('active');
     } else {
       $next.removeAttribute('disabled');
@@ -387,7 +373,7 @@ function first4Cards(d) {
   //check instant win
   if (c1.rank === c2.rank && c2.rank === c3.rank && c3.rank === c4.rank) {
     instantWin = true;
-    score = 502;
+    score = 9999;
   }
 }
 
@@ -478,9 +464,12 @@ function newMultiGame() {
   sum = 0;
   $startMulti.setAttribute('disabled', 'true');
   multi = true;
+  players[0].active = true;
+  players[0].first = true;
+  updatePlayerList();
   broadcastData({
     type: 'startGame',
-    player: user.name
+    players: players
   });
   start();
 }
@@ -497,7 +486,7 @@ function nextTurnMultiGame() {
   multi = true;
   broadcastData({
     type: 'startGame',
-    player: user.name
+    players: players
   });
   start();
 }
@@ -520,6 +509,7 @@ var drops, dropsLock;
 var card, deck, removedCards;
 var sum, score, multi;
 var instantWin = false;
+const GOAL_SCORE = 502;
 
 window.onload = function () {
   $new = document.getElementById('singleStart');

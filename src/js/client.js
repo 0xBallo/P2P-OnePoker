@@ -10,15 +10,9 @@ var dropsCounter;
 //---------------------------- P2P Handlers -----------------------------------------
 
 //Start game function
-function onStartGame(player) {
+function onStartGame(playersList) {
   multi = true;
-  // set active player
-  for (let i = 0; i < players.length; i++) {
-    const p = players[i];
-    if (p.name === player) {
-      players[i].active = true;
-    }
-  }
+  players = playersList;
   updatePlayerList();
   $startMulti.setAttribute('disabled', 'true');
 
@@ -68,31 +62,45 @@ function onDropCard(pile, cardData) {
 }
 
 //End player turn
-function onEndTurn(player, score, next, nextRound) {
-  //FIXME: bug in scelta del next quando tutti hanno giocato
-  for (let i = 0; i < players.length; i++) {
-    const p = players[i];
-    if (nextRound) {
-      players[i].played = false;
-    }
-    if (p.name === player) {
-      players[i].score += score;
-      players[i].played = !players[i].played;
-      players[i].active = false;
-    }
-  }
+function onEndTurn(playersList) {
+  //flip deck
+  deck.flip();
+  deck.fan();
+  players = playersList;
   updatePlayerList();
-  //TODO: check if next is me and if yes prepare start turn
-  if (next === user.name) {
-    $turnMulti.removeAttribute('disabled');
-  } else {
-    $turnMulti.setAttribute('disabled', 'true');
+  // check if game is finished
+  let finish = false;
+  if (players[0].first) {
+    players.forEach(p => {
+      if (p.score >= GOAL_SCORE) {
+        finish = true;
+      }
+    });
   }
+  if (finish) {
+    players.sort(compareScores);
+    broadcastData({
+      type: 'endGame',
+      players: players
+    });
+    onEndGame(players);
+  } else {
+    //check if next is me and if yes prepare start turn
+    if (players[0].name === user.name) {
+      $turnMulti.removeAttribute('disabled');
+    } else {
+      $turnMulti.setAttribute('disabled', 'true');
+    }
+  }
+
 }
 
 // End game with winner
-function onEndGame() {
-  //TODO: implement method
+function onEndGame(playersList) {
+  //show scores list
+  players = playersList;
+  showModalScores();
+  $startMulti.removeAttribute('disabled');
 }
 
 // new peer connect to network
@@ -116,7 +124,7 @@ function onError(err) {
       document.querySelector('.active .toast-error').classList.toggle('d-none');
       setTimeout(() => {
         document.querySelector('.active .toast-error').classList.add('d-none');
-      }, 2000);
+      }, 1500);
       break;
 
     default:
@@ -133,9 +141,15 @@ function onLogin(id) {
   document.querySelector('.active .toast-success').classList.toggle('d-none');
   setTimeout(() => {
     document.querySelector('.active .toast-success').classList.add('d-none');
-  }, 2000);
+  }, 1500);
   document.querySelectorAll('.page-links a')
     .forEach((el) => el.removeAttribute('disabled'));
+  // insert own identity
+  players.push({
+    name: user.name,
+    score: 0,
+    active: false
+  });
 }
 
 //Connection function to a peer
@@ -151,16 +165,16 @@ function onPeerConnection(conn) {
   conn.on('data', function (data) {
     switch (data.type) {
       case 'startGame':
-        onStartGame(data.player);
+        onStartGame(data.players);
         break;
       case 'dropCard':
         onDropCard(data.pile, data.card);
         break;
       case 'endTurn':
-        onEndTurn(data.player, data.score, data.next, data.nextRound);
+        onEndTurn(data.players);
         break;
       case 'endGame':
-        //TODO: implement method
+        onEndGame(data.players);
         break;
       case 'newPeer':
         onNewPeer(data.id);
@@ -181,8 +195,7 @@ function onPeerConnection(conn) {
   players.push({
     name: conn.peer,
     score: 0,
-    active: false,
-    played: false
+    active: false
   });
 
   updatePlayerList();
@@ -194,55 +207,28 @@ function onPeerConnection(conn) {
 //create a peer connection
 function startPeerConnection(id) {
   onPeerConnection(peer.connect(id));
-  /* 
-    conn.on('open', function () {
-      console.info('Connection established with ' + conn.peer);
-    });
-
-    conn.on('error', function (err) {
-      console.error(err);
-    })
-
-    conn.on('data', function (data) {
-
-      switch (data.type) {
-        case 'startGame':
-          onStartGame(data.player);
-          break;
-        case 'dropCard':
-          onDropCard(data.pile, data.card);
-          break;
-        case 'endTurn':
-          //TODO: implement method
-          break;
-        case 'endGame':
-          //TODO: implement method
-          break;
-        case 'newPeer':
-          //TODO: implement method
-          break;
-
-        default:
-          console.warn('Unrecognized message type!', data);
-          break;
-      }
-    });
-
-    peersConnections.push(conn);
-    players.push({
-      name: conn.peer,
-      score: 0,
-      active: false
-    });
-
-    updatePlayerList();
-
-    $startMulti.removeAttribute('disabled');
-    $joinMulti.setAttribute('disabled', 'true'); */
 }
 
 
 //---------------------------- P2P utils -------------------------------------------
+
+//show modal with score's list for multiplayer
+function showModalScores() {
+  var $modal = document.getElementById('modal-scores');
+  document.querySelector('#modal-scores ol').innerHTML = '';
+  for (let i = 0; i < players.length; i++) {
+    const p = players[i];
+    let $li = document.createElement('li');
+    $li.innerHTML = p.name + ' : <b>' + p.score + '</b>';
+    document.querySelector('#modal-scores ol').appendChild($li);
+  }
+  $modal.classList.toggle('active');
+}
+
+//sort function for players
+function compareScores(a, b) {
+  return b.score - a.score;
+}
 
 //broadcast data to all peers
 function broadcastData(data) {
