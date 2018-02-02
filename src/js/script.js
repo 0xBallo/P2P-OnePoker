@@ -2,26 +2,31 @@
   ================================== Theme Funcs =============================================
 */
 
+// function to active page
+function activatePage(destination) {
+  var destPage;
+  document.querySelector('.page-links .active').classList.toggle('active');
+  destSrc.classList.toggle('active');
+  currSrc.classList.toggle('active');
+  currSrc.classList.toggle('d-none');
+  destPage = document.querySelector('.page[data-page="' + destination + '"]');
+  destPage.classList.toggle('active');
+  destPage.classList.toggle('d-none');
+  getActiveUIElements();
+}
+
 // Function to change page
 function changePage(event) {
   var destSrc = event.currentTarget;
   var destination = destSrc.getAttribute('data-link');
   var currSrc = document.querySelector('.page.active');
   var current = currSrc.getAttribute('data-page');
-  var destPage;
 
   event.preventDefault();
 
   //TODO: chek if game is start and ask what to do
   if (destination !== current) {
-    document.querySelector('.page-links .active').classList.toggle('active');
-    destSrc.classList.toggle('active');
-    currSrc.classList.toggle('active');
-    currSrc.classList.toggle('d-none');
-    destPage = document.querySelector('.page[data-page="' + destination + '"]');
-    destPage.classList.toggle('active');
-    destPage.classList.toggle('d-none');
-    getActiveUIElements();
+    activatePage(destination);
   }
 }
 

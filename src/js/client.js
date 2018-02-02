@@ -154,6 +154,8 @@ function onLogin(id) {
 
 //Connection function to a peer
 function onPeerConnection(conn) {
+  activatePage('multiplayer');
+  
   conn.on('open', function () {
     console.info('Connection established with ' + conn.peer);
   })
