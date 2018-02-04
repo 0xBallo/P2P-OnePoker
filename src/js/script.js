@@ -3,8 +3,11 @@
 */
 
 // function to active page
-function activatePage(destination) {
+function activatePage(destination, destSrc = undefined) {
   var destPage;
+  destSrc = (destSrc === undefined) ? document.querySelector('.btn-link[data-link="' + destination + '"]') : destSrc;
+  var currSrc = document.querySelector('.page.active');
+
   document.querySelector('.page-links .active').classList.toggle('active');
   destSrc.classList.toggle('active');
   currSrc.classList.toggle('active');
@@ -19,15 +22,12 @@ function activatePage(destination) {
 function changePage(event) {
   var destSrc = event.currentTarget;
   var destination = destSrc.getAttribute('data-link');
-  var currSrc = document.querySelector('.page.active');
-  var current = currSrc.getAttribute('data-page');
+
 
   event.preventDefault();
 
   //TODO: chek if game is start and ask what to do
-  if (destination !== current) {
-    activatePage(destination);
-  }
+  activatePage(destination, destSrc);
 }
 
 // Add event handler for theme to the components
