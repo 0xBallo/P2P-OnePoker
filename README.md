@@ -16,20 +16,40 @@ All Library are already included in project:
 
 - [PEERJS](http://peerjs.com/): PeerJS simplifies WebRTC peer-to-peer data, video, and audio calls.
 
-## Installation for Development
+## Installation
 
-### Run PeerServer
+### Node.js
 
-Install the library:
+Install latest version of [NodeJS](https://nodejs.org/it/) and **npm**.
+
+### Install Dependencies
+
+Open terminal in the root directory of project
 
 ```bash
-$> npm i peer -g
+$> npm install
 ```
 
-Run the server before lunching the page:
+## Execution
+
+### Development
+
+To start watch server during development
 
 ```bash
-$> peerjs --port 8888 --key onepoker
+$> npm start
+```
+
+### Peer Server
+
+```bash
+$> npm run server
+```
+
+### Test Client
+
+```bash
+$> npm test
 ```
 
 ## Project Structure
