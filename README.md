@@ -68,7 +68,7 @@ Scripts style for project. Edit **script.js** to enter custom scripts.
 
 ### src/scss
 
-Sass files for styles. *Currently not used*.
+Sass files for styles.
 
 ## Game Rules
 
