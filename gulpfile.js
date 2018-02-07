@@ -43,7 +43,7 @@ gulp.task('serve', ['sass'], function () {
 // Web server for testing
 gulp.task('webserver', function () {
   connect.server({
-    port: 8887,
+    port: 8001,
     root: 'src',
     host: 'localhost'
   });
@@ -52,7 +52,7 @@ gulp.task('webserver', function () {
 // Open browser window
 gulp.task('test', ['webserver'], function () {
   var options = {
-    uri: 'http://localhost:8887'
+    uri: 'http://localhost:8001'
   };
 
   for (var i = 0; i < 4; i++) {

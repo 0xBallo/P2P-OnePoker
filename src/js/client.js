@@ -155,14 +155,30 @@ function onLogin(id) {
 //Connection function to a peer
 function onPeerConnection(conn) {
   activatePage('multiplayer');
-  
+
   conn.on('open', function () {
     console.info('Connection established with ' + conn.peer);
-  })
+  });
+
+  conn.on('close', function () {
+    //Get index of peer connection
+    const index = peersConnections.indexOf(conn);
+    //get index of player data
+    let i2 = -1;
+    players.forEach((p, i) => {
+      if (p.name === conn.peer) {
+        i2 = i;
+      }
+    });
+    //remove player data and connection
+    peersConnections.splice(index, 1);
+    players.splice(i2, 1);
+    updatePlayerList();
+  });
 
   conn.on('error', function (err) {
     console.error(err);
-  })
+  });
 
   conn.on('data', function (data) {
     switch (data.type) {
